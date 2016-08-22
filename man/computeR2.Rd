@@ -40,7 +40,7 @@ prediction of each outcome. \code{weightList}}
 \value{
 cv.wR2 An estimated of the weighted R-squared
 
-cv.wR2.ci A 95% confidence interval for the weighted R-squared
+cv.wR2.ci A 95\% confidence interval for the weighted R-squared
 
 cv.wSummary A data.frame illustrating the weights and R-squared 
 estimated in each fold

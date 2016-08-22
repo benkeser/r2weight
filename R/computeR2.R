@@ -29,7 +29,7 @@
 #' @param n The number of observations. \code{n}
 #'
 #' @return cv.wR2 An estimated of the weighted R-squared 
-#' @return cv.wR2.ci A 95% confidence interval for the weighted R-squared
+#' @return cv.wR2.ci A 95\% confidence interval for the weighted R-squared
 #' @return cv.wSummary A data.frame illustrating the weights and R-squared 
 #' estimated in each fold
 #' @return icList A list of estimated influence functions
