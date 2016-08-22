@@ -245,3 +245,39 @@ obtaining inference on cross-validated *R*<sup>2</sup> after fitting
     ## 18  0.222  1
     ## 19  0.973  1
     ## 20  0.301  1
+
+We can also get the performance of a single algorithm used by the Super
+Learner:
+
+    # 
+    r2FitGLM <- r2weight(
+        cvslList = list(cvsl1), X=list(X),
+        whichAlgorithm = "SL.glm_All" # recall SuperLearner adds _All to each function
+                                      # if no screening wrapper is specified
+        )
+    r2FitGLM
+
+    ## CV-R2 (95% CI) = 0.504 (0.265 , 0.665)
+    ## 
+    ## Summary across folds: 
+    ##       w.R2 w1
+    ## 1   0.927  1
+    ## 2   0.152  1
+    ## 3  -0.094  1
+    ## 4  -0.430  1
+    ## 5   0.819  1
+    ## 6   0.096  1
+    ## 7   0.420  1
+    ## 8   0.817  1
+    ## 9   0.088  1
+    ## 10 -1.094  1
+    ## 11  0.586  1
+    ## 12  0.625  1
+    ## 13  0.828  1
+    ## 14  0.655  1
+    ## 15  0.221  1
+    ## 16  0.555  1
+    ## 17  0.334  1
+    ## 18  0.221  1
+    ## 19  0.977  1
+    ## 20  0.293  1
