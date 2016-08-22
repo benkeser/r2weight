@@ -12,7 +12,12 @@
 #' @param X A list of data.frames that were used in CV.SuperLearner fits. The 
 #' length of X should be either one (if same data.frame was used for all 
 #' CV.SuperLearner fits or should be equal to length(cvslList). \code{X}
-#'
+#' @param whichAlgorithm A character indicating which algorithm from the 
+#' SuperLearner library for which compute cross-validated R-squared should be 
+#' computed. The default is "SuperLearner"; other options are 
+#' "discreteSuperLearner" or the name of a SuperLearner wrapper function used 
+#' in the call to CV.SuperLearner.
+#' 
 #' @return r2weight A list containing weighted R-squared output
 #' @return r2 A list containing single outcome R-squared output
 #'
@@ -40,12 +45,21 @@
 
 r2weight <- function(
     cvslList, # list of CV.SuperLearner objects
-    X # the data frame of predictors used in the CV.SuperLearner
+    X, # the data frame of predictors used in the CV.SuperLearner
+    whichAlgorithm = "SuperLearner"
 ){
     
     #############################################################
     # Data checks
     #############################################################
+    # check that whichAlgorithm is in each library
+    if(!(all(unlist(lapply(cvslList,function(s){ whichAlgorithm %in% c(
+        "SuperLearner","discreteSuperLearner", s$libraryNames
+    ) }))))){
+        stop(paste0("whichAlgorithm must be SuperLearner, discreteSuperLearner",
+                    " or an algorithm included in each cvslList object"))
+    }
+    
     # check that all folds are the same
     foldmat <- Reduce("cbind",lapply(cvslList, function(x) unlist(x$folds)))
     correctFolds <- TRUE
@@ -83,16 +97,38 @@ r2weight <- function(
     if(length(X) == 1){
         pred <- lapply(split(1:V,1:V), FUN=function(v){
             tmp <- Reduce("cbind",lapply(cvslList, FUN=function(s){
-                predict(s$AllSL[[v]], 
-                        newdata=X[[1]][-s$folds[[v]],,drop=FALSE])[[1]]
+                allPred <- predict(s$AllSL[[v]], 
+                                   newdata=X[[1]][-s$folds[[v]],,drop=FALSE])
+                if(whichAlgorithm=="SuperLearner"){
+                    allPred[[1]]
+                }else if(whichAlgorithm=="discreteSuperLearner"){
+                    allPred$library.predict[,
+                        which(s$AllSL[[v]]$cvRisk==min(s$AllSL[[v]]$cvRisk))[1]
+                        ]
+                }else{
+                    allPred$library.predict[,which(
+                        s$libraryNames==whichAlgorithm
+                        )]
+                }
             }))
             tmp
         })
     }else{
         pred <- lapply(split(1:V,1:V), FUN=function(v){
             tmp <- Reduce("cbind",mapply(s=cvslList, x=X, FUN=function(s,x){
-                predict(s$AllSL[[v]], 
-                        newdata=x[-s$folds[[v]],,drop=FALSE])[[1]]
+                allPred <- predict(s$AllSL[[v]],
+                                   newdata=x[-s$folds[[v]],,drop=FALSE])
+                if(whichAlgorithm=="SuperLearner"){
+                    allPred[[1]]
+                }else if(whichAlgorithm=="discreteSuperLearner"){
+                    allPred$library.predict[,
+                        which(s$AllSL[[v]]$cvRisk==min(s$AllSL[[v]]$cvRisk))[1]
+                        ]
+                }else{
+                    allPred$library.predict[,which(
+                        s$libraryNames==whichAlgorithm
+                    )]
+                }
             }))
             tmp
         })
@@ -101,7 +137,15 @@ r2weight <- function(
     # list of the predictions from each fold on the validation data
     validPred <- lapply(split(1:V,1:V), FUN=function(v){
         tmp <- Reduce("cbind",lapply(cvslList, FUN=function(s){
-            s$SL.predict[folds[[v]]]
+            if(whichAlgorithm=="SuperLearner"){
+                s$SL.predict[folds[[v]]]
+            }else if(whichAlgorithm=="discreteSuperLearner"){
+                s$discreteSL.predict[folds[[v]]]
+            }else{
+                s$library.predict[folds[[v]],which(
+                    s$libraryNames==whichAlgorithm
+                )]
+            }
         }))
         tmp
     })

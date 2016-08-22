@@ -4,7 +4,7 @@
 \alias{r2weight}
 \title{Compute the optimally weight R-squared from CV.SuperLearner objects.}
 \usage{
-r2weight(cvslList, X)
+r2weight(cvslList, X, whichAlgorithm = "SuperLearner")
 }
 \arguments{
 \item{cvslList}{A list of CV.SuperLearner objects on different outcomes 
@@ -14,6 +14,12 @@ option saveFitLibrary=TRUE.  \code{cvslList}}
 \item{X}{A list of data.frames that were used in CV.SuperLearner fits. The 
 length of X should be either one (if same data.frame was used for all 
 CV.SuperLearner fits or should be equal to length(cvslList). \code{X}}
+
+\item{whichAlgorithm}{A character indicating which algorithm from the 
+SuperLearner library for which compute cross-validated R-squared should be 
+computed. The default is "SuperLearner"; other options are 
+"discreteSuperLearner" or the name of a SuperLearner wrapper function used 
+in the call to CV.SuperLearner.}
 }
 \value{
 r2weight A list containing weighted R-squared output
