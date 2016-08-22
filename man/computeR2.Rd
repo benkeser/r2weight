@@ -8,17 +8,16 @@ computeR2(Ymat, folds, pred, validPred, weightList, V, J, n)
 }
 \arguments{
 \item{Ymat}{A matrix of outcomes on the the full data set with columns 
-corresopnding to different outcomes. \code{Ymat}}
+corresopnding to different outcomes.}
 
 \item{folds}{A list of the same length as V that was used in the 
 cross-validation procedure. Each object of the list is a vector specifying
-the indices of the rows that made up the validation set for that split. 
-\code{folds}}
+the indices of the rows that made up the validation set for that split.}
 
 \item{pred}{A list of the same length as V that was used in the 
 cross-validation procedure containing the predictions made on the training 
 sample by the prediction algorithms. Each entry should be a matrix with a 
-column for a prediction of each outcome. \code{pred}}
+column for a prediction of each outcome.}
 
 \item{validPred}{A list the same length as V that was used in the 
 cross-validation procedure containing the predictions made on the validation 
@@ -28,14 +27,13 @@ column for a prediction of each outcome.}
 \item{weightList}{A list the same length as V that was used in the 
 cross-validation procedure containing the predictions made on the validation 
 sample by the prediction algorithms. Should be matrix with a column for a 
-prediction of each outcome. \code{weightList}}
+prediction of each outcome.}
 
-\item{V}{The number of sample paritions used in cross-validation procedure.
-\code{V}}
+\item{V}{The number of sample paritions used in cross-validation procedure.}
 
-\item{J}{The number of different outcomes. \code{J}}
+\item{J}{The number of different outcomes.}
 
-\item{n}{The number of observations. \code{n}}
+\item{n}{The number of observations.}
 }
 \value{
 cv.wR2 An estimated of the weighted R-squared

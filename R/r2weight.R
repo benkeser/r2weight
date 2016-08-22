@@ -6,12 +6,12 @@
 #' associated confidence intervals. The function also returns the estimated 
 #' R-squared for each outcome individually.
 #' 
-#' @param cvslList A list of CV.SuperLearner objects on different outcomes 
-#' that were executed using an identical sample partitioning with 
-#' option saveFitLibrary=TRUE.  \code{cvslList}
+#' @param cvslList A list of \code{CV.SuperLearner} objects on different 
+#' outcomes that were executed using an identical sample partitioning with 
+#' options \code{saveAll=TRUE} and \code{control$saveFitLibrary=TRUE}.  
 #' @param X A list of data.frames that were used in CV.SuperLearner fits. The 
 #' length of X should be either one (if same data.frame was used for all 
-#' CV.SuperLearner fits or should be equal to length(cvslList). \code{X}
+#' CV.SuperLearner fits or should be equal to length(cvslList).
 #' @param whichAlgorithm A character indicating which algorithm from the 
 #' SuperLearner library for which compute cross-validated R-squared should be 
 #' computed. The default is "SuperLearner"; other options are 

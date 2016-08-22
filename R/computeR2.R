@@ -6,15 +6,14 @@
 #' using (the same) specified weighted combination of predictions. 
 #' 
 #' @param Ymat A matrix of outcomes on the the full data set with columns 
-#' corresopnding to different outcomes. \code{Ymat}
+#' corresopnding to different outcomes. 
 #' @param folds A list of the same length as V that was used in the 
 #' cross-validation procedure. Each object of the list is a vector specifying
 #' the indices of the rows that made up the validation set for that split. 
-#' \code{folds}
 #' @param pred A list of the same length as V that was used in the 
 #' cross-validation procedure containing the predictions made on the training 
 #' sample by the prediction algorithms. Each entry should be a matrix with a 
-#' column for a prediction of each outcome. \code{pred}
+#' column for a prediction of each outcome. 
 #' @param validPred A list the same length as V that was used in the 
 #' cross-validation procedure containing the predictions made on the validation 
 #' sample by the prediction algorithms. Each entry should be matrix with a 
@@ -22,11 +21,10 @@
 #' @param weightList A list the same length as V that was used in the 
 #' cross-validation procedure containing the predictions made on the validation 
 #' sample by the prediction algorithms. Should be matrix with a column for a 
-#' prediction of each outcome. \code{weightList}
+#' prediction of each outcome. 
 #' @param V The number of sample paritions used in cross-validation procedure.
-#' \code{V}
-#' @param J The number of different outcomes. \code{J}
-#' @param n The number of observations. \code{n}
+#' @param J The number of different outcomes. 
+#' @param n The number of observations. 
 #'
 #' @return cv.wR2 An estimated of the weighted R-squared 
 #' @return cv.wR2.ci A 95\% confidence interval for the weighted R-squared

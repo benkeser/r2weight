@@ -7,13 +7,13 @@
 r2weight(cvslList, X, whichAlgorithm = "SuperLearner")
 }
 \arguments{
-\item{cvslList}{A list of CV.SuperLearner objects on different outcomes 
-that were executed using an identical sample partitioning with 
-option saveFitLibrary=TRUE.  \code{cvslList}}
+\item{cvslList}{A list of \code{CV.SuperLearner} objects on different 
+outcomes that were executed using an identical sample partitioning with 
+options \code{saveAll=TRUE} and \code{control$saveFitLibrary=TRUE}.}
 
 \item{X}{A list of data.frames that were used in CV.SuperLearner fits. The 
 length of X should be either one (if same data.frame was used for all 
-CV.SuperLearner fits or should be equal to length(cvslList). \code{X}}
+CV.SuperLearner fits or should be equal to length(cvslList).}
 
 \item{whichAlgorithm}{A character indicating which algorithm from the 
 SuperLearner library for which compute cross-validated R-squared should be 
