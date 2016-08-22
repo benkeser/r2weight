@@ -107,18 +107,6 @@ r2weight <- function(
     #############################################################
     # Computing R2
     #############################################################
-    # list of weights
-    weightList <- lapply(split(1:V,1:V), FUN=function(v){
-        Pnv0 <- list(Y = matrix(Ymat[-folds[[v]],],ncol=J),
-                     psiHat = matrix(pred[[v]],ncol=J))
-        # for each fold estimate weights based on P_{n,v}^0 only
-        alphaHat(P = Pnv0)
-    })
-    
-    # get output for weighted R2
-    weightedOut <- computeR2(Ymat=Ymat, folds=folds, pred=pred, validPred=validPred, 
-                             weightList=weightList, V=V, J=J, n=n)
-    
     # get output for each outcome individually
     singleOut <- lapply(split(1:J,1:J),function(j){
         thisWeight <- rep(0,J); thisWeight[j] <- 1
@@ -126,6 +114,23 @@ r2weight <- function(
         computeR2(Ymat=Ymat, folds=folds, pred=pred, validPred=validPred, 
                   weightList=thisWeightList, V=V, J=J, n=n)
     })
+    
+    if(length(cvslList)>1){
+        # list of weights
+        weightList <- lapply(split(1:V,1:V), FUN=function(v){
+            Pnv0 <- list(Y = matrix(Ymat[-folds[[v]],],ncol=J),
+                         psiHat = matrix(pred[[v]],ncol=J))
+            # for each fold estimate weights based on P_{n,v}^0 only
+            alphaHat(P = Pnv0)
+        })
+        
+        # get output for weighted R2
+        weightedOut <- computeR2(Ymat=Ymat, folds=folds, pred=pred, validPred=validPred, 
+                                 weightList=weightList, V=V, J=J, n=n)
+    }else{
+        weightedOut <- singleOut
+    }
+    
   
     out <- list(r2weight=weightedOut, r2=singleOut)
     class(out) <- "r2weight"
