@@ -54,6 +54,14 @@ r2weight <- function(
     }
     if(!correctFolds) stop("not all folds are the same in cvslList")
     
+    # check that saveAll and saveFitLibrary is true
+    if(is.null(cvslList[[1]]$AllSL)){
+        stop("All CV.SuperLearner objects must be run with saveAll=TRUE")
+    }else if(!(cvslList[[1]]$AllSL[[1]]$control$saveFitLibrary)){
+        stop(paste0("All CV.SuperLearner objects must be run with ", 
+                    "control$saveFitLibrary=TRUE"))
+    }
+    
     # check that X is a list
     if(!is.list(X) | (length(X) != 1 & length(X) != length(cvslList))){ 
         stop("X should be a list of length one or length(cvslList)")
