@@ -84,7 +84,7 @@ r2weight <- function(
         pred <- lapply(split(1:V,1:V), FUN=function(v){
             tmp <- Reduce("cbind",lapply(cvslList, FUN=function(s){
                 predict(s$AllSL[[v]], 
-                        newdata=subset(X[[1]], drop=s$folds[[v]]))[[1]]
+                        newdata=X[[1]][-s$folds[[v]],,drop=FALSE])[[1]]
             }))
             tmp
         })
@@ -92,7 +92,7 @@ r2weight <- function(
         pred <- lapply(split(1:V,1:V), FUN=function(v){
             tmp <- Reduce("cbind",mapply(s=cvslList, x=X, FUN=function(s,x){
                 predict(s$AllSL[[v]], 
-                        newdata=subset(x, drop=s$folds[[v]]))[[1]]
+                        newdata=x[-s$folds[[v]],,drop=FALSE])[[1]]
             }))
             tmp
         })
