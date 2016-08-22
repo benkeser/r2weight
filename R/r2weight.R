@@ -125,10 +125,11 @@ r2weight <- function(
         })
         
         # get output for weighted R2
-        weightedOut <- computeR2(Ymat=Ymat, folds=folds, pred=pred, validPred=validPred, 
+        weightedOut <- computeR2(Ymat=Ymat, folds=folds, pred=pred, 
+                                 validPred=validPred, 
                                  weightList=weightList, V=V, J=J, n=n)
     }else{
-        weightedOut <- singleOut
+        weightedOut <- singleOut[[1]]
     }
     
   
