@@ -2,16 +2,14 @@
 % Please edit documentation in R/alphaHat.R
 \name{alphaHat}
 \alias{alphaHat}
-\title{Compute the weights used by r2weight}
+\title{alphaHat}
 \usage{
-alphaHat(P)
+alphaHat(Y, psiHat.Pnv0)
 }
 \arguments{
-\item{P}{A list called P that consists of: Y, a matrix with columns 
-corresponding to different outcomes in a particular partition; and 
-psiHat, a matrix of predictions from CV.SuperLearner on the same partition of 
-the data as the matrix Y, with columns again corresponding to different 
-outcomes.  \code{P}}
+\item{Y}{A matrix with columns corresponding to different outcomes}
+
+\item{psiHat.Pnv0}{A matrix of predictions from CV.SuperLearner on the validation data}
 }
 \value{
 weights A numeric vector of weights of the same length as the number

@@ -49,9 +49,9 @@ r2weight <- function(
     whichAlgorithm = "SuperLearner"
 ){
     
-    #############################################################
+    #--------------------------------------------
     # Data checks
-    #############################################################
+    #--------------------------------------------
     # check that whichAlgorithm is in each library
     if(!(all(unlist(lapply(cvslList,function(s){ whichAlgorithm %in% c(
         "SuperLearner","discreteSuperLearner", s$libraryNames
@@ -90,66 +90,69 @@ r2weight <- function(
     Ymat <- matrix(Reduce("cbind",lapply(cvslList, function(x) x$Y)),ncol=J)
     n <- length(Ymat[,1])
     
-    #############################################################
+    #--------------------------------------------
     # Predictions on training and validation data
-    #############################################################
-    # list of the predictions from each fold on the training data
-    if(length(X) == 1){
-        pred <- lapply(split(1:V,1:V), FUN=function(v){
-            tmp <- Reduce("cbind",lapply(cvslList, FUN=function(s){
-                allPred <- predict(s$AllSL[[v]], 
-                                   newdata=X[[1]][-s$folds[[v]],,drop=FALSE])
-                if(whichAlgorithm=="SuperLearner"){
-                    allPred[[1]]
-                }else if(whichAlgorithm=="discreteSuperLearner"){
-                    allPred$library.predict[,
-                        which(s$AllSL[[v]]$cvRisk==min(s$AllSL[[v]]$cvRisk))[1]
-                        ]
-                }else{
-                    allPred$library.predict[,which(
-                        s$libraryNames==whichAlgorithm
-                        )]
-                }
-            }))
-            tmp
-        })
-    }else{
-        pred <- lapply(split(1:V,1:V), FUN=function(v){
-            tmp <- Reduce("cbind",mapply(s=cvslList, x=X, FUN=function(s,x){
-                allPred <- predict(s$AllSL[[v]],
-                                   newdata=x[-s$folds[[v]],,drop=FALSE])
-                if(whichAlgorithm=="SuperLearner"){
-                    allPred[[1]]
-                }else if(whichAlgorithm=="discreteSuperLearner"){
-                    allPred$library.predict[,
-                        which(s$AllSL[[v]]$cvRisk==min(s$AllSL[[v]]$cvRisk))[1]
-                        ]
-                }else{
-                    allPred$library.predict[,which(
-                        s$libraryNames==whichAlgorithm
-                    )]
-                }
-            }))
-            tmp
-        })
-    }
-    
+    #--------------------------------------------
+    # # list of the predictions from each fold on the training data
+    # if(length(X) == 1){
+    #     pred <- lapply(split(1:V,1:V), FUN=function(v){
+    #         tmp <- Reduce("cbind",lapply(cvslList, FUN=function(s){
+    #             allPred <- predict(s$AllSL[[v]], 
+    #                                newdata=X[[1]][-s$folds[[v]],,drop=FALSE])
+    #             if(whichAlgorithm=="SuperLearner"){
+    #                 allPred[[1]]
+    #             }else if(whichAlgorithm=="discreteSuperLearner"){
+    #                 allPred$library.predict[,
+    #                     which(s$AllSL[[v]]$cvRisk==min(s$AllSL[[v]]$cvRisk))[1]
+    #                     ]
+    #             }else{
+    #                 allPred$library.predict[,which(
+    #                     s$libraryNames==whichAlgorithm
+    #                     )]
+    #             }
+    #         }))
+    #         tmp
+    #     })
+    # }else{
+    #     pred <- lapply(split(1:V,1:V), FUN=function(v){
+    #         tmp <- Reduce("cbind",mapply(s=cvslList, x=X, FUN=function(s,x){
+    #             allPred <- predict(s$AllSL[[v]],
+    #                                newdata=x[-s$folds[[v]],,drop=FALSE])
+    #             if(whichAlgorithm=="SuperLearner"){
+    #                 allPred[[1]]
+    #             }else if(whichAlgorithm=="discreteSuperLearner"){
+    #                 allPred$library.predict[,
+    #                     which(s$AllSL[[v]]$cvRisk==min(s$AllSL[[v]]$cvRisk))[1]
+    #                     ]
+    #             }else{
+    #                 allPred$library.predict[,which(
+    #                     s$libraryNames==whichAlgorithm
+    #                 )]
+    #             }
+    #         }))
+    #         tmp
+    #     })
+    # }
+    # 
     # list of the predictions from each fold on the validation data
-    validPred <- lapply(split(1:V,1:V), FUN=function(v){
-        tmp <- Reduce("cbind",lapply(cvslList, FUN=function(s){
-            if(whichAlgorithm=="SuperLearner"){
-                s$SL.predict[folds[[v]]]
-            }else if(whichAlgorithm=="discreteSuperLearner"){
-                s$discreteSL.predict[folds[[v]]]
-            }else{
-                s$library.predict[folds[[v]],which(
-                    s$libraryNames==whichAlgorithm
-                )]
-            }
-        }))
-        tmp
-    })
-
+    psiHat.Pnv0 <- Reduce("cbind",lapply(cvslList, FUN=function(s){
+        if(whichAlgorithm=="SuperLearner"){
+            s$SL.predict
+        }else if(whichAlgorithm=="discreteSuperLearner"){
+            s$discreteSL.predict
+        }else{
+            s$library.predict[,which(
+                s$libraryNames==whichAlgorithm
+            )]
+        }
+    }))
+    
+    #--------------------------------------------
+    # Finding optimal weight
+    #--------------------------------------------
+    alpha_n <- alphaHat(Y = Ymat, psiHat.Pnv0 = psiHat.Pnv0)
+    
+    
     #############################################################
     # Computing R2
     #############################################################

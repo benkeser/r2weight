@@ -2,4 +2,9 @@
 
 S3method(print,r2weight)
 export(computeR2)
+export(optWeight)
+export(r2.compare)
+export(r2.optWeight)
 export(r2weight)
+importFrom(SuperLearner,CV.SuperLearner)
+importFrom(SuperLearner,SuperLearner)
