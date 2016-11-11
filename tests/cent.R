@@ -76,6 +76,7 @@ if (args[1] == 'run') {
     save(fit, file = paste0(
         "~/cvr2/out/fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData.tmp"
     ))
+    fit
     file.rename(
         paste0("~/cvr2/out/fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData.tmp"),
         paste0("~/cvr2/out/fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData")
@@ -86,6 +87,7 @@ if (args[1] == 'run') {
     perf.fit <- r2.optWeight(
         object = fit, Y = dat$Y, X = dat$X, evalV = 10
     )
+    perf.fit
     save(perf.fit, file = paste0(
         "~/cvr2/out/perf_fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData.tmp"
     ))
@@ -124,6 +126,27 @@ if (args[1] == 'merge') {
         })
         out <- rbind(out, tmp)
     }
+    # format
+    out <- data.frame(out)
+    colnames(out) <- c(
+        "n","seed","trueOptR2","trueUniR2",
+        "optR2","optR2CI.l","optR2CI.h",
+        "y1R2","y1R2CI.l","y1R2CI.h",
+        "y2R2","y2R2CI.l","y2R2CI.h",
+        "y3R2","y3R2CI.l","y3R2CI.h"
+    )
+    # coverage (take mean by sample size to get coverage)
+    out$covOptR2 <- as.numeric(out$optR2CI.l <= out$trueOptR2 & out$optR2CI.h >= out$trueOptR2)
+    out$covY1R2 <- as.numeric(out$y1R2CI.l <= out$trueUniR2 & out$y1R2CI.h >= out$trueUniR2)
+    out$covY2R2 <- as.numeric(out$y2R2CI.l <= out$trueUniR2 & out$y2R2CI.h >= out$trueUniR2)
+    out$covY3R2 <- as.numeric(out$y3R2CI.l <= out$trueUniR2 & out$y3R2CI.h >= out$trueUniR2)
+    # error (take mean by sample size to get bias)
+    out$errOptR2 <- out$optR2 - out$trueOptR2
+    out$errY1R2 <- out$y1R2 - out$trueUniR2
+    out$errY2R2 <- out$y2R2 - out$trueUniR2
+    out$errY3R2 <- out$y3R2 - out$trueUniR2
+    
+    
     save(out, file=paste0('~/cvr2/out/allOut.RData'))
     print("results saved")
 }
