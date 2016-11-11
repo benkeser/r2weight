@@ -38,7 +38,7 @@ getUnivariateR2 <- function(Y, psiHat.Pnv0, return.IC){
     
     # ic for log(numerator) - log(denominator)
     se.logR2 <- apply(matrix(1:J),1,function(j){
-        grad <- matrix(c(1/MSE[j],1/Var[j]),nrow=1)
+        grad <- matrix(c(1/MSE[j],-1/Var[j]),nrow=1)
         IC <- cbind(IC.MSE[,j],IC.Var[,j])
         sqrt(grad%*%t(IC)%*%IC%*%t(grad))/n
     })
