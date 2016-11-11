@@ -25,7 +25,7 @@
 #' Y2 <- rnorm(100, X$x1 + X$x2, 3)
 #' Y <- data.frame(Y1 = Y1, Y2 = Y2)
 #' fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
-#' perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5, verbose=TRUE)
+#' perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5)
 #' 
 #' 
 #' @export
@@ -45,10 +45,11 @@ r2.optWeight <- function(
         pb <- txtProgressBar(style=3)
     }
     CV.rslt <- Reduce("rbind",lapply(validRows, FUN = function(v){
-        assign("ct", ct+1, pos = env)
-        .doOneEval(validRows = v, X = X, Y = Y, object = object, seed = seed,
+        if(verbose) assign("ct", ct+1, pos = env)
+        tmp <- .doOneEval(validRows = v, X = X, Y = Y, object = object, seed = seed,
                    return.IC = return.IC, parallel = parallel, n.cores = n.cores)
-        setTxtProgressBar(get("pb",envir=env), get("ct",envir = env)/evalV)
+        if(verbose) setTxtProgressBar(get("pb",envir=env), get("ct",envir = env)/evalV)
+        return(tmp)
     }))
     
     # close progress bar
