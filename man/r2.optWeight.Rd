@@ -5,7 +5,7 @@
 \title{r2.optWeight}
 \usage{
 r2.optWeight(object, Y, X, evalV = 20, return.IC = TRUE, seed = 12345,
-  ...)
+  verbose = FALSE, ...)
 }
 \arguments{
 \item{object}{A \code{optWeight} object.}
@@ -19,6 +19,8 @@ performance of \code{object} for predicting the optimal combined outcome.}
 
 \item{return.IC}{A \code{boolean} indicating whether to return estimated influence
 function at the observed data values (needed for post-hoc comparisons).}
+
+\item{verbose}{Print message with each CV fold completed}
 }
 \value{
 An cross-validated estimate of the R-squared for the optimal prediction and 
@@ -36,6 +38,7 @@ Y2 <- rnorm(100, X$x1 + X$x2, 3)
 Y <- data.frame(Y1 = Y1, Y2 = Y2)
 fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
 perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5)
+
 
 }
 

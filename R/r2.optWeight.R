@@ -10,6 +10,8 @@
 #' performance of \code{object} for predicting the optimal combined outcome. 
 #' @param return.IC A \code{boolean} indicating whether to return estimated influence
 #' function at the observed data values (needed for post-hoc comparisons).
+#' @param verbose Print message with each CV fold completed
+#' 
 #' @return An cross-validated estimate of the R-squared for the optimal prediction and 
 #' standard error and confidence interval. 
 #' 
@@ -22,17 +24,24 @@
 #' fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
 #' perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5)
 #' 
+#' 
 #' @export
 
 
 r2.optWeight <- function(
-    object, Y, X, evalV = 20, return.IC = TRUE, seed = 12345, ...
+    object, Y, X, evalV = 20, return.IC = TRUE, seed = 12345, verbose = FALSE, ...
 ){
     n <- length(Y[,1])
     validRows <- split(sample(1:n), rep(1:evalV, length = n))
     
     # cross-validate
+    if(verbose){
+        env <- environment()
+        ct <- 0
+    }
     CV.rslt <- Reduce("rbind",lapply(validRows, FUN = function(v){
+        assign("ct", ct+1, pos = env)
+        if(verbose) cat("Evaluating performance in fold ",ct," of ",evalV,"\n")
         .doOneEval(validRows = v, X = X, Y = Y, object = object, seed = seed,
                    return.IC = return.IC)
     }))
