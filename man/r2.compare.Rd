@@ -40,5 +40,9 @@ perf.fit1 <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5)
 fit2 <- optWeight(Y = Y, X = X[,1,drop=FALSE], SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
 perf.fit2 <- r2.optWeight(object = fit, Y = Y, X = X[,1,drop=FALSE], evalV = 5)
 
+# compare cross-validated r-squared for each outcome
+r2.compare(fit1, fit2)
+# compare cross-validated r-squared for combined outcome
+r2.compare(perf.fit1, perf.fit2)
 }
 
