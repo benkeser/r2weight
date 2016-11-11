@@ -1,5 +1,5 @@
 #' @method print r2weight    
-#' @exportMethod
+#' @export
 
 print.r2weight <- function(x,...){
     cat("CV-R2 (95% CI) = ", round(x[[1]]$cv.wR2,3)," (", 

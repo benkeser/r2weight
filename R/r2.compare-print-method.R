@@ -1,7 +1,7 @@
 #' print.r2.compare
 #' 
 #' Print output of optimal weight procedure
-#' @exportMethod
+#' @export
 
 print.r2.compare <- function(object, digits = 3, ...){
     if(object$type=="optWeight"){

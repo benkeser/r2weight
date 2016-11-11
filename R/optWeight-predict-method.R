@@ -5,7 +5,7 @@
 #' @param object A fit \code{optWeight} object. 
 #' @param newdata A new data frame with the same design as the original \code{X} object
 #' that was used in the call to \code{optWeight}.
-#' @exportMethod 
+#' @export 
 
 
 predict.optWeight <- function(object, newdata){
