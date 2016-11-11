@@ -11,7 +11,10 @@
 #' @param return.IC A \code{boolean} indicating whether to return estimated influence
 #' function at the observed data values (needed for post-hoc comparisons).
 #' @param verbose Print message with each CV fold completed
-#' 
+#' @param parallel A \code{boolean} indicating whether to run the CV.SuperLearner calls
+#' in parallel using \code{mclapply}. Be sure to set options()$mc.cores to 
+#' @param n.cores A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
+#' By default will use \code{detectCores()}. 
 #' @return An cross-validated estimate of the R-squared for the optimal prediction and 
 #' standard error and confidence interval. 
 #' 
@@ -29,7 +32,8 @@
 
 
 r2.optWeight <- function(
-    object, Y, X, evalV = 20, return.IC = TRUE, seed = 12345, verbose = FALSE, ...
+    object, Y, X, evalV = 20, return.IC = TRUE, seed = 12345, verbose = FALSE, 
+    parallel = FALSE, n.cores = detectCores(), ...
 ){
     n <- length(Y[,1])
     validRows <- split(sample(1:n), rep(1:evalV, length = n))
@@ -43,7 +47,7 @@ r2.optWeight <- function(
         assign("ct", ct+1, pos = env)
         if(verbose) cat("Evaluating performance in fold ",ct," of ",evalV,"\n")
         .doOneEval(validRows = v, X = X, Y = Y, object = object, seed = seed,
-                   return.IC = return.IC)
+                   return.IC = return.IC, parallel = parallel, n.cores = n.cores)
     }))
 
     # get R^2 results

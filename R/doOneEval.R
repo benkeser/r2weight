@@ -2,7 +2,8 @@
 #' 
 #' One evaluation of the optimal weight combination and prediction.
 
-.doOneEval <- function(validRows, Y, X, object, seed, return.IC, ...){
+.doOneEval <- function(validRows, Y, X, object, seed, return.IC, 
+                       parallel, n.cores, ...){
     trainY <- Y[-validRows,,drop = FALSE]
     trainX <- X[-validRows,, drop = FALSE]
     validY <- data.matrix(Y[validRows, ,drop = FALSE])
@@ -13,7 +14,7 @@
         return.IC = return.IC,
         family = object$SL.family, CV.SuperLearner.V = object$CV.SuperLearner.V, 
         seed = seed, whichAlgorithm = object$whichAlgorithm, 
-        return.CV.SuperLearner = FALSE
+        return.CV.SuperLearner = FALSE, parallel = parallel, n.cores = n.cores
     )
     # make validation combined outcome
     Y.combn <- validY%*%matrix(fit$SL.weight)

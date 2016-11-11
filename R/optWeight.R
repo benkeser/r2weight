@@ -16,6 +16,10 @@
 #' @param whichAlgorithm What algorithm to compute optimal predictions and R^2 values for.
 #' @param return.CV.SuperLearner A \code{boolean} indicating whether to return the fitted CV.SuperLearner
 #' objects. 
+#' @param parallel A \code{boolean} indicating whether to run the CV.SuperLearner calls
+#' in parallel using \code{mclapply}. Be sure to set options()$mc.cores to 
+#' @param n.cores A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
+#' By default will use \code{detectCores()}. 
 #' @param ... Other arguments
 #' 
 #' @return TO DO: Add return documentation. 
@@ -29,7 +33,14 @@
 #' Y1 <- rnorm(100, X$x1 + X$x2, 1)
 #' Y2 <- rnorm(100, X$x1 + X$x2, 3)
 #' Y <- data.frame(Y1 = Y1, Y2 = Y2)
-#' fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
+#' system.time(
+#'  fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean","SL.randomForest"))
+#' )
+#' # Example 2 -- simple fit with parallelization
+#' system.time(
+#'    fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean","SL.randomForest"), parallel = TRUE, n.cores = 3)
+#' )
+#' 
 #' 
 
 optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V = 10, 
@@ -37,6 +48,8 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
                       whichAlgorithm = "SuperLearner", 
                       return.CV.SuperLearner = FALSE,
                       return.IC = TRUE,
+                      parallel = FALSE,
+                      n.cores = detectCores(),
                       ...){
     #--------------------
     # Workflow 
@@ -57,8 +70,12 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     # fit CV.SuperLearner
     CV.SuperLearner.list <- apply(Ymat, 2, function(y){
         set.seed(seed)
+        if(parallel){
+            options("mc.cores" = n.cores)
+        }
         fit <- SuperLearner::CV.SuperLearner(
-            Y = y, X = X, SL.library = SL.library, family = family, V = CV.SuperLearner.V
+            Y = y, X = X, SL.library = SL.library, family = family, V = CV.SuperLearner.V,
+            parallel = ifelse(parallel, "multicore","seq")
         )
     })
     
