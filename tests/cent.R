@@ -70,7 +70,7 @@ if (args[1] == 'run') {
     
     # estimate optimal weights
     fit <- optWeight(
-        Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),
+        Y = dat$Y, X = dat$X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),
         outerV = 10, return.CV.SuperLearner = FALSE
         )
     save(fit.all, file = paste0(
