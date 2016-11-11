@@ -6,7 +6,7 @@ Description: This package interfaces with the SuperLearner package to compute
     the optimal weighted cross-validated R-squared of predictions made by the Super
     Learner on several different outcomes.
 Depends:
-    R (>= 3.2.3), SuperLearner, Rsolnp
+    R (>= 3.0.0), SuperLearner, Rsolnp
 Imports: 
 	Rsolnp
 License: Artistic-2.0
