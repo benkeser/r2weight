@@ -18,7 +18,7 @@ print.optWeight <- function(object,...){
 #' print.r2.optWeight
 #' 
 #' Print the output of R-squared for Super Learner of optimal R-squared
-#' 
+#' @export
 
 print.r2.optWeight <- function(object,...){
     cat("\n \nR-squared for each outcome with", object$whichAlgorithm, " : \n")

@@ -73,7 +73,7 @@ if (args[1] == 'run') {
         Y = dat$Y, X = dat$X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),
         outerV = 10, return.CV.SuperLearner = FALSE
         )
-    save(fit.all, file = paste0(
+    save(fit, file = paste0(
         "~/cvr2/out/fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData.tmp"
     ))
     file.rename(
