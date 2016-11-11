@@ -2,6 +2,10 @@
 
 S3method(print,r2weight)
 export(computeR2)
+export(getTrueOptR2)
+export(getTrueUnivarateR2)
+export(getTrueWeights)
+export(makeData)
 export(optWeight)
 export(r2.compare)
 export(r2.optWeight)
