@@ -85,7 +85,7 @@ if (args[1] == 'run') {
     
     # estimate performance
     perf.fit <- r2.optWeight(
-        object = fit, Y = dat$Y, X = dat$X, evalV = 10
+        object = fit, Y = dat$Y, X = dat$X, evalV = 10, verbose = TRUE
     )
     perf.fit
     save(perf.fit, file = paste0(
@@ -102,7 +102,7 @@ if (args[1] == 'run') {
 if (args[1] == 'merge') {
     set.seed(125857)
     trueOptR2 <- getTrueOptR2(n=1e6)
-    trueUniR2 <- getTrueUnivarateR2(n=1e6)
+    trueUniR2 <- getTrueUnivariateR2(n=1e6)
     out <- NULL
     for(i in nrow(parm)){
         tmp <- tryCatch({
@@ -146,6 +146,7 @@ if (args[1] == 'merge') {
     out$errY2R2 <- out$y2R2 - out$trueUniR2
     out$errY3R2 <- out$y3R2 - out$trueUniR2
     
+    row.names(out) <- NULL
     
     save(out, file=paste0('~/cvr2/out/allOut.RData'))
     print("results saved")
