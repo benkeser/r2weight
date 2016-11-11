@@ -1,7 +1,7 @@
 #' print.optWeight
 #' 
 #' Print output of optimal weight procedure
-#' 
+#' @exportMethod 
 
 print.optWeight <- function(object,...){
     cat("\nOptimal weights for prediction with", object$whichAlgorithm, " : \n")
