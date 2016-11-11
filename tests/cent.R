@@ -66,11 +66,11 @@ if (args[1] == 'run') {
     library(SuperLearner)
     library(Rsolnp)
     
-    SL.lib <- c("SL.glm","SL.bayesglm","SL.step","SL.mean")
+    SL.lib <- c("SL.glm","SL.step.forward","SL.mean")
     
     # estimate optimal weights
     fit <- optWeight(
-        Y = dat$Y, X = dat$X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),
+        Y = dat$Y, X = dat$X, SL.library = SL.lib, family = gaussian(),
         outerV = 10, return.CV.SuperLearner = FALSE
         )
     save(fit, file = paste0(

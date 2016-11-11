@@ -15,22 +15,22 @@ makeData <- function(n){
     x8 <- runif(n,0,4)
     x9 <- runif(n,0,4)
     
-    commonMean <- x1/0.25 + x2/0.25 + x3/0.25 + x4 + x5 + x6
+    commonMean <- x1 + x2/0.5 + x3/0.25 + x4 + x5/0.5 + x6/0.25
     
     # first outcome
     err1 <- rnorm(n, 0, 5)
-    y1 <- commonMean + err1 + x7/0.25
+    y1 <- commonMean + err1 + x7/0.5
     
     # second outcome
     err2 <- rnorm(n, 0, 5)
-    y2 <- commonMean + err2 + x8/0.25
+    y2 <- commonMean + err2 + x8/0.5
     
     # third outcome
     err3 <- rnorm(n, 0, 5)
-    y3 <- commonMean + err3 + x9/0.25
+    y3 <- commonMean + err3 + x9/0.5
     
   return(list(Y=data.frame(y1=y1,y2=y2,y3=y3), 
-              X=data.frame(x1=x1,x2=x2,x3=x3,x4=x4,x5=x5)))
+              X=data.frame(x1=x1,x2=x2,x3=x3,x4=x4,x5=x5,x6=x6,x7=x7,x8=x8,x9=x9)))
 }
 
 #' getTrueWeights1
@@ -142,6 +142,7 @@ getTrueUnivariateR2 <- function(n=1e6){
     # first outcome
     err1 <- rnorm(n, 0, 5)
     y1 <- commonMean + err1 + x7/0.5
+    
     psi <- commonMean + x7/0.5
     mse <- mean((y1-psi)^2)
     return(

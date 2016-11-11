@@ -43,7 +43,7 @@ Y1 <- rnorm(100, X$x1 + X$x2, 1)
 Y2 <- rnorm(100, X$x1 + X$x2, 3)
 Y <- data.frame(Y1 = Y1, Y2 = Y2)
 fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
-perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5)
+perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5, verbose=TRUE)
 
 
 }

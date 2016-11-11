@@ -9,6 +9,10 @@
 #' 
 #' @return A \code{list} with point estimate and 95% Wald-style confidence interval 
 #' for R^2 for each outcome individually. 
+#' 
+
+# TO DO: Add option for confidence interval level. 
+
 getUnivariateR2 <- function(Y, psiHat.Pnv0, return.IC){
     n <- length(Y[,1])
     J <- ncol(Y)

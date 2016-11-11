@@ -25,7 +25,7 @@
 #' Y2 <- rnorm(100, X$x1 + X$x2, 3)
 #' Y <- data.frame(Y1 = Y1, Y2 = Y2)
 #' fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
-#' perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5)
+#' perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5, verbose=TRUE)
 #' 
 #' 
 #' @export
@@ -42,14 +42,18 @@ r2.optWeight <- function(
     if(verbose){
         env <- environment()
         ct <- 0
+        pb <- txtProgressBar(style=3)
     }
     CV.rslt <- Reduce("rbind",lapply(validRows, FUN = function(v){
         assign("ct", ct+1, pos = env)
-        if(verbose) cat("Evaluating performance in fold ",ct," of ",evalV,"\n")
         .doOneEval(validRows = v, X = X, Y = Y, object = object, seed = seed,
                    return.IC = return.IC, parallel = parallel, n.cores = n.cores)
+        setTxtProgressBar(get("pb",envir=env), get("ct",envir = env)/evalV)
     }))
-
+    
+    # close progress bar
+    if(verbose) close(pb)
+    
     # get R^2 results
     ord <- order(unlist(validRows))
     R2.rslt <- getUnivariateR2(Y = matrix(CV.rslt[ord,1]), 
