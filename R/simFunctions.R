@@ -128,7 +128,7 @@ getTrueOptR2 <- function(n=1e6){
 #' y1 (from \code{makeData}), but it will be the same for all outcomes
 #' @export
 
-getTrueUnivarateR2 <- function(n=1e6){
+getTrueUnivariateR2 <- function(n=1e6){
     x1 <- runif(n,0,4)
     x2 <- runif(n,0,4)
     x3 <- runif(n,0,4)
