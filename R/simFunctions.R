@@ -2,6 +2,7 @@
 #' 
 #' Makes data for simulation. 
 #' @export
+
 makeData <- function(n){
     x1 <- runif(n,0,4)
     x2 <- runif(n,0,4)
@@ -74,6 +75,7 @@ getTrueWeights <- function(n = 1e6){
 #' getTrueOptR2
 #' 
 #' Compute the true value of R^2_{0,omega_0}
+#' @export
 
 getTrueOptR2 <- function(n=1e6){
     x1 <- runif(n,0,4)
@@ -124,6 +126,7 @@ getTrueOptR2 <- function(n=1e6){
 #' 
 #' Compute the true value of R^2_{0,j}. The code computes it only for 
 #' y1 (from \code{makeData}), but it will be the same for all outcomes
+#' @export
 
 getTrueUnivarateR2 <- function(n=1e6){
     x1 <- runif(n,0,4)
