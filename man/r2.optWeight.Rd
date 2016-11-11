@@ -5,7 +5,7 @@
 \title{r2.optWeight}
 \usage{
 r2.optWeight(object, Y, X, evalV = 20, return.IC = TRUE, seed = 12345,
-  verbose = FALSE, ...)
+  verbose = FALSE, parallel = FALSE, n.cores = detectCores(), ...)
 }
 \arguments{
 \item{object}{A \code{optWeight} object.}
@@ -21,6 +21,12 @@ performance of \code{object} for predicting the optimal combined outcome.}
 function at the observed data values (needed for post-hoc comparisons).}
 
 \item{verbose}{Print message with each CV fold completed}
+
+\item{parallel}{A \code{boolean} indicating whether to run the CV.SuperLearner calls
+in parallel using \code{mclapply}. Be sure to set options()$mc.cores to}
+
+\item{n.cores}{A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
+By default will use \code{detectCores()}.}
 }
 \value{
 An cross-validated estimate of the R-squared for the optimal prediction and 

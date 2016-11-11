@@ -6,7 +6,8 @@
 \usage{
 optWeight(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V = 10,
   seed = 12345, whichAlgorithm = "SuperLearner",
-  return.CV.SuperLearner = FALSE, return.IC = TRUE, ...)
+  return.CV.SuperLearner = FALSE, return.IC = TRUE, parallel = FALSE,
+  n.cores = detectCores(), ...)
 }
 \arguments{
 \item{Y}{A \code{data.frame} of outcomes with each column representing a different outcome}
@@ -30,6 +31,12 @@ calls to \code{CV.SuperLearner} always use V=10.}
 \item{return.CV.SuperLearner}{A \code{boolean} indicating whether to return the fitted CV.SuperLearner
 objects.}
 
+\item{parallel}{A \code{boolean} indicating whether to run the CV.SuperLearner calls
+in parallel using \code{mclapply}. Be sure to set options()$mc.cores to}
+
+\item{n.cores}{A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
+By default will use \code{detectCores()}.}
+
 \item{...}{Other arguments}
 }
 \value{
@@ -45,7 +52,14 @@ X <- data.frame(x1=runif(n=100,0,5), x2=runif(n=100,0,5))
 Y1 <- rnorm(100, X$x1 + X$x2, 1)
 Y2 <- rnorm(100, X$x1 + X$x2, 3)
 Y <- data.frame(Y1 = Y1, Y2 = Y2)
-fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
+system.time(
+ fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean","SL.randomForest"))
+)
+# Example 2 -- simple fit with parallelization
+system.time(
+   fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean","SL.randomForest"), parallel = TRUE, n.cores = 3)
+)
+
 
 }
 
