@@ -104,7 +104,7 @@ if (args[1] == 'merge') {
     trueOptR2 <- getTrueOptR2(n=1e6)
     trueUniR2 <- getTrueUnivariateR2(n=1e6)
     out <- NULL
-    for(i in nrow(parm)){
+    for(i in 1:nrow(parm)){
         tmp <- tryCatch({
           load(
               paste0("~/cvr2/out/perf_fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData")
