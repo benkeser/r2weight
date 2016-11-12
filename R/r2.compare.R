@@ -14,7 +14,7 @@
 #' and \code{object2}.
 #' @param comparison What type of comparison should be made. Possible choices include
 #' \code{"diff"} and \code{"ratio"}.
-#' @param alpha The function returns a \code{(1-\alpha)*100}% confidence interval. Default
+#' @param alpha The function returns a \code{(1-alpha)*100}% confidence interval. Default
 #' is set to \code{0.05} (i.e., 95% confidence interval)
 #' 
 #' @return Point estimate and confidence interval for the selected \code{comparison}(s). 
@@ -28,14 +28,16 @@
 #' Y2 <- rnorm(100, X$x1 + X$x2, 3)
 #' Y <- data.frame(Y1 = Y1, Y2 = Y2)
 #' fit1 <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
-#' perf.fit1 <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5)
+#' perf.fit1 <- r2.optWeight(object = fit1, Y = Y, X = X, evalV = 5)
 #' fit2 <- optWeight(Y = Y, X = X[,1,drop=FALSE], SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
-#' perf.fit2 <- r2.optWeight(object = fit, Y = Y, X = X[,1,drop=FALSE], evalV = 5)
+#' perf.fit2 <- r2.optWeight(object = fit2, Y = Y, X = X[,1,drop=FALSE], evalV = 5)
 #' 
 #' # compare cross-validated r-squared for each outcome
-#' r2.compare(fit1, fit2)
+#' comp <- r2.compare(fit1, fit2)
+#' comp
 #' # compare cross-validated r-squared for combined outcome
-#' r2.compare(perf.fit1, perf.fit2)
+#' perf.comp <- r2.compare(perf.fit1, perf.fit2)
+#' perf.comp
 
 r2.compare <- function(
     object1, object2, comparison = c("diff","ratio"), alpha = 0.05

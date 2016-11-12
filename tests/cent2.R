@@ -163,7 +163,7 @@ if (args[1] == 'merge') {
             )
             c(
                 # parameters
-                parm$n[i], parm$seed[i],
+                parm$n[i], parm$seed[i], parm$excludeX[i],
                 # true values for difference in R2
                 trueOptR2 - trueOptR2Exclude[parm$excludeX[i]], 
                 trueUniR2 - trueUniR2ExcludeY1[parm$excludeX[i]],
@@ -175,26 +175,36 @@ if (args[1] == 'merge') {
                 (1-trueUniR2)/(1-trueUniR2ExcludeY2[parm$excludeX[i]]),
                 (1-trueUniR2)/(1-trueUniR2ExcludeY3[parm$excludeX[i]]),
                 # estimated values for difference in R2
-                
-                # univariate results
-                perf.fit$univariateR2$y1,
-                perf.fit$univariateR2$y2,
-                perf.fit$univariateR2$y3
+                as.numeric(comp.perf.fit$diff)[1:3],
+                as.numeric(comp.fit$y1$diff)[1:3],
+                as.numeric(comp.fit$y2$diff)[1:3],
+                as.numeric(comp.fit$y3$diff)[1:3],
+                # estimated values for ratio of 1-R2
+                as.numeric(comp.perf.fit$ratio)[1:3],
+                as.numeric(comp.fit$y1$ratio)[1:3],
+                as.numeric(comp.fit$y2$ratio)[1:3],
+                as.numeric(comp.fit$y3$ratio)[1:3]
             )
         }, error=function(e){
-            c(parm$n[i], parm$seed[i], rep(NA, 14))
+            c(parm$n[i], parm$seed[i], parm$excludeX[i], rep(NA, 32))
         })
         out <- rbind(out, tmp)
     }
     # format
     out <- data.frame(out)
     colnames(out) <- c(
-        "n","seed","trueOptR2","trueUniR2",
-        "optR2","optR2CI.l","optR2CI.h",
+        "n","seed","excludeX",
+        "trueOptR2.diff","trueUniR2Y1.diff","trueUniR2Y2.diff","trueUniR2Y3.diff",
+        "trueOptR2.ratio","trueUniR2Y1.ratio","trueUniR2Y2.ratio","trueUniR2Y3.ratio",
+        paste0(c("optR2","optR2CI.l","optR2CI.h",
         "y1R2","y1R2CI.l","y1R2CI.h",
         "y2R2","y2R2CI.l","y2R2CI.h",
-        "y3R2","y3R2CI.l","y3R2CI.h"
-    )
+        "y3R2","y3R2CI.l","y3R2CI.h"),".diff"),
+        paste0(c("optR2","optR2CI.l","optR2CI.h",
+                 "y1R2","y1R2CI.l","y1R2CI.h",
+                 "y2R2","y2R2CI.l","y2R2CI.h",
+                 "y3R2","y3R2CI.l","y3R2CI.h"),".ratio")
+        )
     # coverage (take mean by sample size to get coverage)
     out$covOptR2 <- as.numeric(out$optR2CI.l <= out$trueOptR2 & out$optR2CI.h >= out$trueOptR2)
     out$covY1R2 <- as.numeric(out$y1R2CI.l <= out$trueUniR2 & out$y1R2CI.h >= out$trueUniR2)
@@ -208,6 +218,6 @@ if (args[1] == 'merge') {
     
     row.names(out) <- NULL
     
-    save(out, file=paste0('~/cvr2/out/allOut.RData'))
+    save(out, file=paste0('~/cvr2/out/allOutExclude.RData'))
     print("results saved")
 }
