@@ -9,7 +9,5 @@
 summary.r2.varImport <- function(
     object, ...
 ){
-    
-    
-    
+    return(NULL)
 }
