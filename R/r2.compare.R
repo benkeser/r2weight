@@ -14,8 +14,8 @@
 #' and \code{object2}.
 #' @param comparison What type of comparison should be made. Possible choices include
 #' \code{"diff"} and \code{"ratio"}.
-#' @param alpha The function returns a \code{(1-alpha)*100}% confidence interval. Default
-#' is set to \code{0.05} (i.e., 95% confidence interval)
+#' @param alpha The function returns a \code{(1-alpha)*100} percent confidence interval. Default
+#' is set to \code{0.05} (i.e., 95 percent confidence interval)
 #' 
 #' @return Point estimate and confidence interval for the selected \code{comparison}(s). 
 #' 
