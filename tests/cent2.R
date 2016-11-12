@@ -18,12 +18,13 @@ if(length(args) < 1){
     stop("Not enough arguments. Please use args 'listsize', 'prepare', 'run <itemsize>' or 'merge'")
 }
 
-excludeX <- 1:9
+ns <- c(100,500,1000,5000)
+excludeX <- c(2,7)
 bigB <- 1000
 # 
 # # 
 # # simulation parameters
-parm <- expand.grid(seed=1:bigB,excludeX=excludeX,n=1000)
+parm <- expand.grid(seed=1:bigB,excludeX=excludeX,n=ns)
 
 # load r2weight package
 library(r2weight)
@@ -60,6 +61,10 @@ if (args[1] == 'run') {
         # load previous fits on all variables
         load(paste0("~/cvr2/out/fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData"))
         load(paste0("~/cvr2/out/perf_fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData"))
+        # add family argument to output (ran before newer version)
+        fit$family <- gaussian()
+        perf.fit$family <- gaussian()
+        
         # set seed
         set.seed(parm$seed[i])
         

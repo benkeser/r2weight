@@ -49,7 +49,7 @@ r2.compare <- function(
     }
     
     # check outcomes are same
-    if(!all(names(object1) == names(object2))){
+    if(!all(names(object1$Ynames) == names(object2$Ynames))){
         stop("different outcome names in object1 and object2")
     }
     
