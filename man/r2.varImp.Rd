@@ -31,8 +31,8 @@ By default will use \code{detectCores()}.}
 
 \item{seed}{The seed to set before each internal call to \code{CV.SuperLearner}}
 
-\item{alpha}{The function returns a \code{(1-\alpha)*100}% confidence interval. Default
-is set to \code{0.05} (i.e., 95% confidence interval)}
+\item{alpha}{The function returns a \code{(1-alpha)*100} percent confidence interval. Default
+is set to \code{0.05} (i.e., 95 percent confidence interval)}
 
 \item{object}{An \code{r2.optWeight} object.}
 }

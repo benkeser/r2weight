@@ -17,8 +17,8 @@
 #' @param n.cores A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
 #' By default will use \code{detectCores()}. 
 #' @param seed The seed to set before each internal call to \code{CV.SuperLearner}
-#' @param alpha The function returns a \code{(1-\alpha)*100}% confidence interval. Default
-#' is set to \code{0.05} (i.e., 95% confidence interval)
+#' @param alpha The function returns a \code{(1-alpha)*100} percent confidence interval. Default
+#' is set to \code{0.05} (i.e., 95 percent confidence interval)
 #' 
 #' @export
 #' 
