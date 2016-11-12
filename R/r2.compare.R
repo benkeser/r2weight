@@ -13,7 +13,9 @@
 #' @param Y The \code{data.frame} of outcomes that was used to fit \code{object1}
 #' and \code{object2}.
 #' @param comparison What type of comparison should be made. Possible choices include
-#' \code{"diff"} and \code{"ratio"}.  
+#' \code{"diff"} and \code{"ratio"}.
+#' @param alpha The function returns a \code{(1-\alpha)*100}% confidence interval. Default
+#' is set to \code{0.05} (i.e., 95% confidence interval)
 #' 
 #' @return Point estimate and confidence interval for the selected \code{comparison}(s). 
 #' 
@@ -138,7 +140,7 @@ r2.compare <- function(
             g.diff <- matrix(c(1/psi[1], -psi[1]/(psi[2]^2),
                                -1/psi[4], psi[3]/(psi[4]^2)),nrow=4)
             se.diff <- sqrt(t(g.diff)%*%crossprod(ICMat)%*%g.diff)/n
-            diff <- -psi[1]/psi[2] + psi[3]/psi[4]
+            diff <- psi[1]/psi[2] - psi[3]/psi[4]
             # put results in out
             out$diff <- data.frame(
             # point estimate

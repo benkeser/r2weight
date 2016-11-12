@@ -16,6 +16,9 @@ r2.compare(object1, object2, comparison = c("diff", "ratio"), alpha = 0.05)
 \item{comparison}{What type of comparison should be made. Possible choices include
 \code{"diff"} and \code{"ratio"}.}
 
+\item{alpha}{The function returns a \code{(1-\alpha)*100}% confidence interval. Default
+is set to \code{0.05} (i.e., 95% confidence interval)}
+
 \item{Y}{The \code{data.frame} of outcomes that was used to fit \code{object1}
 and \code{object2}.}
 }

@@ -71,7 +71,7 @@ if (args[1] == 'run') {
     # estimate optimal weights
     fit <- optWeight(
         Y = dat$Y, X = dat$X, SL.library = SL.lib, family = gaussian(),
-        outerV = 10, return.CV.SuperLearner = FALSE
+        CV.SuperLearner.V = 10, return.CV.SuperLearner = FALSE
         )
     save(fit, file = paste0(
         "~/cvr2/out/fit_n=",parm$n[i],"_seed=",parm$seed[i],".RData.tmp"

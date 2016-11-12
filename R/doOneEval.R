@@ -11,8 +11,8 @@
     # fit the optWeight routine
     fit <- optWeight(
         Y = trainY, X = trainX, SL.library = object$SL.library, 
-        return.IC = return.IC,
-        family = object$SL.family, CV.SuperLearner.V = object$CV.SuperLearner.V, 
+        return.IC = return.IC, family = object$family, 
+        CV.SuperLearner.V = object$CV.SuperLearner.V, 
         seed = seed, whichAlgorithm = object$whichAlgorithm, 
         return.CV.SuperLearner = FALSE, parallel = parallel, n.cores = n.cores
     )

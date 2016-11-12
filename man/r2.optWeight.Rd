@@ -4,7 +4,7 @@
 \alias{r2.optWeight}
 \title{r2.optWeight}
 \usage{
-r2.optWeight(object, Y, X, evalV = 20, return.IC = TRUE, seed = 12345,
+r2.optWeight(object, Y, X, evalV = 10, return.IC = TRUE, seed = 12345,
   verbose = FALSE, parallel = FALSE, n.cores = detectCores(), ...)
 }
 \arguments{
@@ -20,7 +20,7 @@ performance of \code{object} for predicting the optimal combined outcome.}
 \item{return.IC}{A \code{boolean} indicating whether to return estimated influence
 function at the observed data values (needed for post-hoc comparisons).}
 
-\item{verbose}{Print message with each CV fold completed}
+\item{verbose}{A \code{boolean} indicating whether to show a progress bar}
 
 \item{parallel}{A \code{boolean} indicating whether to run the CV.SuperLearner calls
 in parallel using \code{mclapply}. Be sure to set options()$mc.cores to}
@@ -43,7 +43,7 @@ Y1 <- rnorm(100, X$x1 + X$x2, 1)
 Y2 <- rnorm(100, X$x1 + X$x2, 3)
 Y <- data.frame(Y1 = Y1, Y2 = Y2)
 fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(),outerV = 10, return.CV.SuperLearner = FALSE)
-perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5, verbose=TRUE)
+perf.fit <- r2.optWeight(object = fit, Y = Y, X = X, evalV = 5)
 
 
 }

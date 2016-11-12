@@ -10,7 +10,7 @@
 #' performance of \code{object} for predicting the optimal combined outcome. 
 #' @param return.IC A \code{boolean} indicating whether to return estimated influence
 #' function at the observed data values (needed for post-hoc comparisons).
-#' @param verbose Print message with each CV fold completed
+#' @param verbose A \code{boolean} indicating whether to show a progress bar
 #' @param parallel A \code{boolean} indicating whether to run the CV.SuperLearner calls
 #' in parallel using \code{mclapply}. Be sure to set options()$mc.cores to 
 #' @param n.cores A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
@@ -32,7 +32,8 @@
 
 
 r2.optWeight <- function(
-    object, Y, X, evalV = 20, return.IC = TRUE, seed = 12345, verbose = FALSE, 
+    object, Y, X, evalV = 10, return.IC = TRUE, 
+    seed = 12345, verbose = FALSE, 
     parallel = FALSE, n.cores = detectCores(), ...
 ){
     n <- length(Y[,1])
@@ -40,15 +41,17 @@ r2.optWeight <- function(
     
     # cross-validate
     if(verbose){
-        env <- environment()
         ct <- 0
         pb <- txtProgressBar(style=3)
+        env <- environment()
     }
     CV.rslt <- Reduce("rbind",lapply(validRows, FUN = function(v){
-        if(verbose) assign("ct", ct+1, pos = env)
+        if(verbose){
+            assign("ct", ct+1, envir = env)
+        }
         tmp <- .doOneEval(validRows = v, X = X, Y = Y, object = object, seed = seed,
                    return.IC = return.IC, parallel = parallel, n.cores = n.cores)
-        if(verbose) setTxtProgressBar(get("pb",envir=env), get("ct",envir = env)/evalV)
+        if(verbose) eval.parent(setTxtProgressBar(pb, ct/evalV))
         return(tmp)
     }))
     
@@ -69,8 +72,11 @@ r2.optWeight <- function(
     out$MSE <- R2.rslt$MSE
     out$Var <- R2.rslt$Var
     out$IC <- NULL
-    out$Y <- Y
+    out$evalV <- evalV
     out$whichAlgorithm <- object$whichAlgorithm
+    out$SL.library <- object$SL.library
+    out$CV.SuperLearner.V <- object$CV.SuperLearner.V
+    out$family <- object$family
     if(return.IC){
         out$IC <- R2.rslt$IC
     }

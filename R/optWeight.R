@@ -107,14 +107,15 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     #---------------------------------
     out <- vector(mode = "list")
     
+    # TO DO: I don't like some of these names for the output.
+    #        Think of better names. 
     out$SL.fits <- SuperLearner.list
     out$SL.weights <- alpha_n
     out$SL.library <- SL.library
     out$CV.SL.fits <- NULL
     out$whichAlgorithm <- whichAlgorithm 
     out$CV.SuperLearner.V <- CV.SuperLearner.V
-    out$SL.family <- family
-    out$Y <- Y
+    out$family <- family
     if(return.CV.SuperLearner){
         out$CV.SL.fits <- CV.SuperLearner.list
     }
