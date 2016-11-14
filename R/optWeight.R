@@ -16,6 +16,8 @@
 #' @param whichAlgorithm What algorithm to compute optimal predictions and R^2 values for.
 #' @param return.CV.SuperLearner A \code{boolean} indicating whether to return the fitted CV.SuperLearner
 #' objects. 
+#' @param return.SuperLearner A \code{boolean} indicating whether to return the fitted \code{SuperLearner}
+#' objects for each outcome. Default is \code{TRUE}, as these fits are needed for later predictions. 
 #' @param parallel A \code{boolean} indicating whether to run the CV.SuperLearner calls
 #' in parallel using \code{mclapply}. Be sure to set options()$mc.cores to 
 #' @param n.cores A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
@@ -46,6 +48,7 @@
 optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V = 10, 
                       seed = 12345, 
                       whichAlgorithm = "SuperLearner", 
+                      return.SuperLearner = TRUE, 
                       return.CV.SuperLearner = FALSE,
                       return.IC = TRUE,
                       parallel = FALSE,
@@ -109,7 +112,10 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     
     # TO DO: I don't like some of these names for the output.
     #        Think of better names. 
-    out$SL.fits <- SuperLearner.list
+    out$SL.fits <- NULL
+    if(return.SuperLearner){
+        out$SL.fits <- SuperLearner.list
+    }
     out$SL.weights <- alpha_n
     out$SL.library <- SL.library
     out$CV.SL.fits <- NULL

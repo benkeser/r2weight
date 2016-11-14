@@ -6,8 +6,8 @@
 \usage{
 optWeight(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V = 10,
   seed = 12345, whichAlgorithm = "SuperLearner",
-  return.CV.SuperLearner = FALSE, return.IC = TRUE, parallel = FALSE,
-  n.cores = detectCores(), ...)
+  return.SuperLearner = TRUE, return.CV.SuperLearner = FALSE,
+  return.IC = TRUE, parallel = FALSE, n.cores = detectCores(), ...)
 }
 \arguments{
 \item{Y}{A \code{data.frame} of outcomes with each column representing a different outcome}
@@ -27,6 +27,9 @@ calls to \code{CV.SuperLearner} always use V=10.}
 \item{seed}{The seed to set before each internal call to \code{CV.SuperLearner}}
 
 \item{whichAlgorithm}{What algorithm to compute optimal predictions and R^2 values for.}
+
+\item{return.SuperLearner}{A \code{boolean} indicating whether to return the fitted \code{SuperLearner}
+objects for each outcome. Default is \code{TRUE}, as these fits are needed for later predictions.}
 
 \item{return.CV.SuperLearner}{A \code{boolean} indicating whether to return the fitted CV.SuperLearner
 objects.}
