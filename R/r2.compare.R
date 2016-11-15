@@ -84,10 +84,10 @@ r2.compare <- function(
             # get se of difference
             se.diff.j <- NULL
             if("diff" %in% comparison){
-                g.diff.j <- matrix(c(1/psi.j[1], -psi.j[1]/(psi.j[2]^2),
-                            -1/psi.j[4], psi.j[3]/(psi.j[4]^2)),nrow=4)
+                g.diff.j <- matrix(c(-1/psi.j[2], psi.j[1]/(psi.j[2]^2),
+                            1/psi.j[4], -psi.j[3]/(psi.j[4]^2)),nrow=4)
                 se.diff.j <- sqrt(t(g.diff.j)%*%crossprod(ICMat.j)%*%g.diff.j)/n
-                diff.j <- psi.j[1]/psi.j[2] - psi.j[3]/psi.j[4]
+                diff.j <- (1 - psi.j[1]/psi.j[2]) - (1 - psi.j[3]/psi.j[4])
                 # put results in out
                 out[[j]]$diff <- data.frame(
                     # point estimate
