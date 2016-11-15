@@ -142,7 +142,7 @@ r2.compare <- function(
             g.diff <- matrix(c(-1/psi[2], psi[1]/(psi[2]^2),
                                1/psi[4], -psi[3]/(psi[4]^2)),nrow=4)
             se.diff <- sqrt(t(g.diff)%*%crossprod(ICMat)%*%g.diff)/n
-            diff <- psi[1]/psi[2] - psi[3]/psi[4]
+            diff <- (1-psi[1]/psi[2]) - (1-psi[3]/psi[4])
             # put results in out
             out$diff <- data.frame(
             # point estimate
