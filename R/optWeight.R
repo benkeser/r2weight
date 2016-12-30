@@ -71,7 +71,7 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     Ymat <- data.matrix(Y)
     # correct names if none
     if(is.null(colnames(Ymat))){
-        colnames(Y) <- paste0("Y",1:J)
+        colnames(Ymat) <- paste0("Y",1:J)
     }
 
     # fit CV.SuperLearner
