@@ -19,11 +19,6 @@ getUnivariateR2 <- function(Y, psiHat.Pnv0, return.IC){
     
     # compute Y bar for each outcome
     Ybar <- colMeans(Y)
-    
-    # correct names if none
-    if(is.null(colnames(Y))){
-        colnames(Y) <- paste0("Y",1:J)
-    }
 
     # MSE for each outcome
     MSE <- apply(matrix(1:J), 1, function(j){

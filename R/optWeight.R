@@ -69,7 +69,11 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     n <- length(Y[,1])
     J <- ncol(Y)
     Ymat <- data.matrix(Y)
-    
+    # correct names if none
+    if(is.null(colnames(Ymat))){
+        colnames(Y) <- paste0("Y",1:J)
+    }
+
     # fit CV.SuperLearner
     CV.SuperLearner.list <- apply(Ymat, 2, function(y){
         set.seed(seed)
