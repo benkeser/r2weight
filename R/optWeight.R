@@ -136,7 +136,7 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     }
     out$MSE <- univariateResults[["MSE"]]
     out$Var <- univariateResults[["Var"]]
-    out$Ynames <- colnames(Y)
+    out$Ynames <- colnames(Ymat)
     class(out) <- "optWeight"
     return(out)
 }
