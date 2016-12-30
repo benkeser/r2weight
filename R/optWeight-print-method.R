@@ -5,11 +5,13 @@
 
 print.optWeight <- function(object,...){
     cat("\nOptimal weights for prediction with", object$whichAlgorithm, " : \n")
-    for(j in 1:length(object$Ynames)){
+    J <- length(object$Ynames)
+    for(j in 1:J){
         cat(object$Ynames[j], " : ", round(object$SL.weights[j],3), "\n")
     }
     cat("\n \nR-squared for each outcome with", object$whichAlgorithm, " : \n")
     r2Table <- round(Reduce("rbind", object$univariateR2),3)
+    dim(r2Table) <- c(J, 3)
     row.names(r2Table) <- object$Ynames
     colnames(r2Table) <- c("R2","CI.l","CI.h")
     print(r2Table)
