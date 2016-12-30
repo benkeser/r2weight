@@ -129,7 +129,7 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     if(return.CV.SuperLearner){
         out$CV.SL.fits <- CV.SuperLearner.list
     }
-    out$univariateR2 <- univariateResults[colnames(Y)]
+    out$univariateR2 <- univariateResults[colnames(Ymat)]
     out$IC <- NULL
     if(return.IC){
         out$IC <- univariateResults[["IC"]]
