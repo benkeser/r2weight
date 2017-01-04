@@ -357,7 +357,7 @@ plotSimResults <- function(out, outExclude, ...,
     axis(side = 1, at = 1:4, labels = prettyNum(n,big.mark = ","))
     abline(h=0, lty=3)
     
-    plot(I(cov.r2*100) ~ I(1:4), xlab = "n", ylab="95% Coverage (MC CI)", 
+    plot(I(cov.r2*100) ~ I(1:4), xlab = "n", ylab="Coverage (MC CI)", 
          xaxt = "n", bty="n", type="b", ylim = c(72, 100))
     axis(side = 1, at = 1:4, labels = prettyNum(n,big.mark = ","))
     abline(h=95, lty=3)
@@ -375,9 +375,9 @@ plotSimResults <- function(out, outExclude, ...,
     axis(side = 1, at = 1:4, labels = prettyNum(n,big.mark = ","))
     abline(h=0, lty=3)
     legend(x=2, y=0.02, bty="n", pch = c(2,5), 
-           legend=c(expression("exclude "*X[2]), expression("exclude "*X[7])))
+           legend=c(expression("exclude "*X[2]), expression("exclude "*X[4])))
     
-    plot(I(cov.dr2.x2*100) ~ I(1:4), xlab = "n", ylab="95% Coverage (MC CI)", 
+    plot(I(cov.dr2.x2*100) ~ I(1:4), xlab = "n", ylab="Coverage (MC CI)", 
          xaxt = "n", bty="n", type="b", ylim = c(72, 100), pch=2)
     points(I(cov.dr2.x7*100) ~ I(1:4), type ="b", pch=5)
     axis(side = 1, at = 1:4, labels = prettyNum(n,big.mark = ","))

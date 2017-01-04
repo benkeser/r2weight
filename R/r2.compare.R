@@ -39,6 +39,10 @@
 #' perf.comp <- r2.compare(perf.fit1, perf.fit2)
 #' perf.comp
 
+
+# TO DO: Add in ability to input one "optWeight" and one "r2.optWeight" object 
+# which would then compare the performance for optimally combined outcome to the 
+# performance for each outcome individually
 r2.compare <- function(
     object1, object2, comparison = c("diff","ratio"), alpha = 0.05
 ){
