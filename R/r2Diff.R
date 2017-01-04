@@ -1,4 +1,4 @@
-#' r2.compare 
+#' r2Diff 
 #' 
 #' Compare the R-squared values in two objects class \code{optWeight} or of 
 #' class \code{r2.optWeight}. The former compares the R-squared values
@@ -43,7 +43,7 @@
 # TO DO: Add in ability to input one "optWeight" and one "r2.optWeight" object 
 # which would then compare the performance for optimally combined outcome to the 
 # performance for each outcome individually
-r2.compare <- function(
+r2Diff <- function(
     object1, object2, comparison = c("diff","ratio"), alpha = 0.05
 ){
     # check classes
