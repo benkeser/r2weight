@@ -1,4 +1,4 @@
-#' optWeight
+#' optWeightEff
 #' 
 #' Function that computes the optimal combination of multiple outcomes and a predictor of
 #' the optimal combination using Super Learning. 
