@@ -79,11 +79,14 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     # get predictions back for each outcome for the specified algorithm
     psiHat.Pnv0 <- getPredictionsOnValidation(out = CV.SuperLearner.list, 
                                               whichAlgorithm = whichAlgorithm)
-    
+    # check class
+    if(!is.matrix(psiHat.Pnv0)){
+        psiHat.Pnv0 <- matrix(psiHat.Pnv0, ncol = J)
+    }
     #---------------------------------
     # compute R^2 for each outcome
     #---------------------------------
-    univariateResults <- getUnivariateR2(Y = Ymat, psiHat.Pnv0 = matrix(psiHat.Pnv0, ncol = J),
+    univariateResults <- getUnivariateR2(Y = Ymat, psiHat.Pnv0 = psiHat.Pnv0,
                                          return.IC = return.IC)
     
     #---------------------------------
