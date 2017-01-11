@@ -83,7 +83,7 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     #---------------------------------
     # compute R^2 for each outcome
     #---------------------------------
-    univariateResults <- getUnivariateR2(Y = Ymat, psiHat.Pnv0 = matrix(psiHat.Pnv0),
+    univariateResults <- getUnivariateR2(Y = Ymat, psiHat.Pnv0 = matrix(psiHat.Pnv0, ncol = J),
                                          return.IC = return.IC)
     
     #---------------------------------

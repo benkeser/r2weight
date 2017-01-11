@@ -6,7 +6,9 @@ output: md_document
 ---
 ## Introduction
 
-This package can be used to learn the convex combination of a multivariate outcome that maximizes cross-validated R-squared of a Super Learner-based prediction. The package simultaneously estimates a prediction function for the learned convex combination and can compute a cross-validated estimate of the R-squared of this prediction algorithm for predicting the convex combination of outcomes. The package also computes influence function-based estimates of the standard error of the estimated performance metric that are used to construct confidence intervals and hypotheses tests. Finally, the package includes functions for computing variable importance measures for each variable. 
+This package can be used to learn the convex combination of a multivariate outcome that maximizes cross-validated R-squared of a Super Learner-based prediction. Super Learner is an ensemble machine learning method with an associated [R package](https://github.com/ecpolley/SuperLearner) written by Eric Polley. The `SuperLearner` package provides a flexible interface for utilizing user-written wrappers to perform ensemble learning. A short tutorial on use of the Super Learner package can be found [here](http://benkeser.github.io/sllecture/).
+
+In addition to estimating the best convex combination of outcomes for the sake of prediction, the `r2weight` package simultaneously estimates a function for predicting this learned convex combination and can compute a cross-validated estimate of the R-squared of this prediction algorithm for predicting the convex combination of outcomes. The package also computes influence function-based estimates of the standard error of the estimated performance metric that are used to construct confidence intervals and hypotheses tests. Finally, the package includes functions for computing variable importance measures for each variable. 
 
 ## Installation
 The package can be installed directly from GitHub as follows:
