@@ -3,7 +3,7 @@
 #' S3 method for object of class \code{optWeight}.
 #' @export
 
-cvR2 <- function(x) UseMethod("cvR2")
+cvR2 <- function(...) UseMethod("cvR2",...)
 
 #' cvR2.optWeight
 #' 
