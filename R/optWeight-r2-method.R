@@ -1,11 +1,4 @@
-#' cvR2
-#' 
-#' S3 method for object of class \code{optWeight}.
-#' @export
-
-cvR2 <- function(...) UseMethod("cvR2",...)
-
-#' cvR2.optWeight
+#' r2.optWeight
 #' 
 #' Estimate the performance of the Super Learner for predicting the optimal weighted 
 #' combination via cross-validation.
@@ -38,7 +31,7 @@ cvR2 <- function(...) UseMethod("cvR2",...)
 #' @export
 
 
-cvR2.optWeight <- function(
+r2.optWeight <- function(
     object, Y, X, evalV = 10, return.IC = TRUE, 
     seed = 12345, verbose = FALSE, 
     parallel = FALSE, n.cores = detectCores(), ...
