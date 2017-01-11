@@ -92,7 +92,7 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
     #---------------------------------
     # Estimate the optimal weight
     #---------------------------------
-    alpha_n <- alphaHat(Y = Ymat, psiHat.Pnv0 = matrix(psiHat.Pnv0))
+    alpha_n <- alphaHat(Y = Ymat, psiHat.Pnv0 = psiHat.Pnv0)
     
     # fit Super Learner to full data
     SuperLearner.list <- apply(Ymat, 2, function(y){
