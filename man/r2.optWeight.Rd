@@ -4,11 +4,13 @@
 \alias{r2.optWeight}
 \title{r2.optWeight}
 \usage{
-r2.optWeight(object, Y, X, evalV = 10, return.IC = TRUE, seed = 12345,
-  verbose = FALSE, parallel = FALSE, n.cores = detectCores(), ...)
+\method{r2}{optWeight}(object, Y, X, evalV = 10, return.IC = TRUE,
+  seed = 12345, verbose = FALSE, parallel = FALSE,
+  n.cores = detectCores(), ...)
 
-r2.optWeight(object, Y, X, evalV = 10, return.IC = TRUE, seed = 12345,
-  verbose = FALSE, parallel = FALSE, n.cores = detectCores(), ...)
+\method{r2}{optWeight}(object, Y, X, evalV = 10, return.IC = TRUE,
+  seed = 12345, verbose = FALSE, parallel = FALSE,
+  n.cores = detectCores(), ...)
 }
 \arguments{
 \item{object}{A \code{optWeight} object.}

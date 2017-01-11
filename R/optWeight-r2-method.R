@@ -1,3 +1,9 @@
+#' r2
+#' 
+#' S3 method for object of class \code{optWeight}.
+#' @exportMethod 
+r2 <- function(x) UseMethod("r2")
+
 #' r2.optWeight
 #' 
 #' Estimate the performance of the Super Learner for predicting the optimal weighted 
