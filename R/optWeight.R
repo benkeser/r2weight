@@ -54,18 +54,8 @@ optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V =
                       parallel = FALSE,
                       n.cores = detectCores(),
                       ...){
-    #--------------------
-    # Workflow 
-    #--------------------
-    # 1. Fit CV.SuperLearner with same seeds for each outcome
-    # 2. Compute estimate of alpha_n
-    # 3. Fit SL on all the data
-    # 4. Return fit for all ncol(Y) SL's + weights
-    # 
-    # write a predict.optWeight function that can be used to generate new 
-    # predictions of the optimal weighted outcome. 
     
-    # get some initial parameter values
+    # get initial parameter values
     n <- length(Y[,1])
     J <- ncol(Y)
     Ymat <- data.matrix(Y)

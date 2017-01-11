@@ -1,4 +1,4 @@
-#' makeData1
+#' makeData
 #' 
 #' Makes data for simulation. 
 #' @export
@@ -10,7 +10,6 @@ makeData <- function(n){
     x4 <- rbinom(n,1,0.75)
     x5 <- rbinom(n,1,0.25)
     x6 <- rbinom(n,1,0.5)
-    
     x7 <- runif(n,0,4)
     x8 <- runif(n,0,4)
     x9 <- runif(n,0,4)
@@ -33,7 +32,7 @@ makeData <- function(n){
               X=data.frame(x1=x1,x2=x2,x3=x3,x4=x4,x5=x5,x6=x6,x7=x7,x8=x8,x9=x9)))
 }
 
-#' getTrueWeights1
+#' getTrueWeights
 #' 
 #' Compute the true value of the optimal weights for simulation 1.
 #' @export

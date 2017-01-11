@@ -2,7 +2,7 @@
 % Please edit documentation in R/simFunctions.R
 \name{makeData}
 \alias{makeData}
-\title{makeData1}
+\title{makeData}
 \usage{
 makeData(n)
 }

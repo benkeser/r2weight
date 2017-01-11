@@ -2,7 +2,7 @@
 % Please edit documentation in R/simFunctions.R
 \name{getTrueWeights}
 \alias{getTrueWeights}
-\title{getTrueWeights1}
+\title{getTrueWeights}
 \usage{
 getTrueWeights(n = 1e+06)
 }

@@ -1,4 +1,4 @@
-#' summary.r2.varImport
+#' summary.r2VarImp
 #' 
 #' Method for summarizing output of r2.varImport.
 #' 
@@ -6,7 +6,7 @@
 #' 
 #' @export
 
-summary.r2.varImport <- function(
+summary.r2VarImp <- function(
     object, ...
 ){
     return(NULL)

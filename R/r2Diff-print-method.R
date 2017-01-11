@@ -1,9 +1,9 @@
-#' print.r2.compare
+#' print.r2Diff
 #' 
 #' Print output of optimal weight procedure
 #' @export
 
-print.r2.compare <- function(object, digits = 3, ...){
+print.r2Diff <- function(object, digits = 3, ...){
     if(object$type=="optWeight"){
         for(j in 1:length(object$Ynames)){
             cat("\n \n R-squared comparison for", object$Ynames[j],": \n")
