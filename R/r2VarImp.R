@@ -69,17 +69,17 @@ r2VarImp <- function(
             cat("   Comparing with full fit\n")
         }
         # each outcome individually
-        fit.compare.j <- r2.compare(
+        fit.compare.j <- r2Diff(
             object1 = fit, object2 = optWeightObject, comparison = comparison, alpha = alpha
         )
         # optimal weighted outcome
-        fit.compare.opt <- r2.compare(
+        fit.compare.opt <- r2Diff(
             object1 = fit.perf, object2 = r2.optWeightObject, comparison = comparison, alpha = alpha
         )
         
         names(xOut)[x] <- paste(grpX[[x]], collapse = "_")
         xOut[[x]] <- list(optWeight = fit, r2.optWeight = fit.perf, 
-                          r2.compare = list(univariate = fit.compare.j,
+                          r2Diff = list(univariate = fit.compare.j,
                                             combined = fit.compare.opt))
     }
     

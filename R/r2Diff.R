@@ -184,7 +184,7 @@ r2Diff <- function(
     }
     out$type <- ifelse(class(object1) == "optWeight", "optWeight", "r2.optWeight")
     out$Ynames <- object1$Ynames
-    class(out) <- "r2.compare"
+    class(out) <- "r2Diff"
     return(out)
 }
 
