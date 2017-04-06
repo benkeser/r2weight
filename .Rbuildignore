@@ -1,0 +1,7 @@
+^r2weight\.Rproj$
+^\.travis\.yml$
+^appveyor\.yml$
+^\.gitignore$
+^\README\.md$
+^\.git$
+^docs$
