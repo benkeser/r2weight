@@ -2,9 +2,9 @@ r2weight
 ================
 David Benkeser
 
-[![Travis-CI Build Status](https://travis-ci.org/benkeser/drtmle.svg?branch=master)](https://travis-ci.org/benkeser/drtml)
-[![AppVeyor Build  Status](https://ci.appveyor.com/api/projects/status/github/benkeser/drtmle?branch=master&svg=true)](https://ci.appveyor.com/project/benkeser/survtmle)
-[![CRAN](http://www.r-pkg.org/badges/version/drtmle)](http://www.r-pkg.org/pkg/drtmle)
+[![Travis-CI Build Status](https://travis-ci.org/benkeser/r2weight.svg?branch=master)](https://travis-ci.org/benkeser/drtml)
+[![AppVeyor Build  Status](https://ci.appveyor.com/api/projects/status/github/benkeser/r2weight?branch=master&svg=true)](https://ci.appveyor.com/project/benkeser/survtmle)
+[![CRAN](http://www.r-pkg.org/badges/version/r2weight)](http://www.r-pkg.org/pkg/r2weight)
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
