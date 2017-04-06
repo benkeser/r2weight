@@ -5,7 +5,7 @@
 \title{plotSimResults}
 \usage{
 plotSimResults(out, outExclude, ...,
-  saveDir = "~/Dropbox/Berkeley/r2weight/tests/simulation/",
+  saveDir = "~/Dropbox/Job Applications/Job Talk/",
   outFile = "sim1Rslt.pdf", outExFile = "sim2Rslt.pdf")
 }
 \arguments{

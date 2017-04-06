@@ -6,6 +6,13 @@
 \usage{
 getTrueUnivariateR2Exclude(n = 1e+06, excludeX, whichY)
 }
+\arguments{
+\item{n}{Sample size}
+
+\item{excludeX}{What X column to exclude}
+
+\item{whichY}{What Y column to study}
+}
 \description{
 Compute the true value of R^2_{0,j} when a given variable of X is excluded.
 }

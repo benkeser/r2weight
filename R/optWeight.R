@@ -8,8 +8,8 @@
 #' @param SL.library A \code{vector} or \code{list} of the Super Learner library to be used for the
 #' prediction. See \code{?SuperLearner} for more details. For now the same \code{SL.library} is used
 #' for prediction of each outcome. 
-#' @param family An object of class \code{family} equal to either \code{gaussian()} for continuous
-#' outcomes or \code{binomial()} for binary outcomes. 
+#' @param family An object of class \code{family} equal to either \code{"gaussian"} for continuous
+#' outcomes or \code{"binomial"} for binary outcomes. 
 #' @param seed The seed to set before each internal call to \code{CV.SuperLearner}
 #' @param CV.SuperLearner.V The number of CV folds for the calls to \code{CV.SuperLearner}. For now, the inner
 #' calls to \code{CV.SuperLearner} always use V=10. 
@@ -18,10 +18,11 @@
 #' objects. 
 #' @param return.SuperLearner A \code{boolean} indicating whether to return the fitted \code{SuperLearner}
 #' objects for each outcome. Default is \code{TRUE}, as these fits are needed for later predictions. 
+#' @param return.IC A \code{boolean} indicating whether to return estimated influence functions.
 #' @param parallel A \code{boolean} indicating whether to run the CV.SuperLearner calls
 #' in parallel using \code{mclapply}. Be sure to set options()$mc.cores to 
 #' @param n.cores A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
-#' By default will use \code{detectCores()}. 
+#' By default will use \code{parallel::detectCores()}. 
 #' @param ... Other arguments
 #' 
 #' @return TO DO: Add return documentation. 
@@ -31,28 +32,31 @@
 #' @importFrom SuperLearner CV.SuperLearner SuperLearner
 #' @examples
 #' # Example 1 -- simple fit
+#' set.seed(1234)
 #' X <- data.frame(x1=runif(n=100,0,5), x2=runif(n=100,0,5))
 #' Y1 <- rnorm(100, X$x1 + X$x2, 1)
 #' Y2 <- rnorm(100, X$x1 + X$x2, 3)
 #' Y <- data.frame(Y1 = Y1, Y2 = Y2)
-#' system.time(
-#'  fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean","SL.randomForest"))
-#' )
+#'
+#' fit <- optWeight(Y = Y, X = X, seed = 1, 
+#' SL.library = c("SL.glm","SL.mean","SL.step"))
+#'
 #' # Example 2 -- simple fit with parallelization
 #' #system.time(
-#' #   fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean","SL.randomForest"), parallel = TRUE, n.cores = 3)
+#' #   fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean","SL.step"), 
+#' #parallel = TRUE, n.cores = 3)
 #' #)
 #' 
 #' 
 
-optWeight <- function(Y, X, SL.library, family = gaussian(), CV.SuperLearner.V = 10, 
+optWeight <- function(Y, X, SL.library, family = "gaussian", CV.SuperLearner.V = 10, 
                       seed = 12345, 
                       whichAlgorithm = "SuperLearner", 
                       return.SuperLearner = TRUE, 
                       return.CV.SuperLearner = FALSE,
                       return.IC = TRUE,
                       parallel = FALSE,
-                      n.cores = detectCores(),
+                      n.cores = parallel::detectCores(),
                       ...){
     
     # get initial parameter values

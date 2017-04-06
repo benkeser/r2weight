@@ -6,6 +6,11 @@
 \usage{
 getTrueOptR2Exclude(n = 1e+06, excludeX)
 }
+\arguments{
+\item{n}{Sample size}
+
+\item{excludeX}{What X column to drop}
+}
 \description{
 Compute the true value of R^2_{0,omega_0} when a given variable of X is excluded.
 }

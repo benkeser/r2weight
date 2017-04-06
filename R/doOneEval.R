@@ -1,6 +1,15 @@
 #' .doOneEval
 #' 
 #' One evaluation of the optimal weight combination and prediction.
+#' @param validRows List of validation rows indices
+#' @param Y The outcome
+#' @param X The covariates
+#' @param object The optWeight object 
+#' @param seed The random seed to set
+#' @param return.IC Should influence functions be returned
+#' @param parallel Boolean to indicate running in parallel
+#' @param n.cores Number of cores to use
+#' 
 
 .doOneEval <- function(validRows, Y, X, object, seed, return.IC, 
                        parallel, n.cores, ...){

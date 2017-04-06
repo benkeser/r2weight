@@ -4,13 +4,15 @@
 \alias{predict.optWeight}
 \title{predict.optWeight}
 \usage{
-\method{predict}{optWeight}(object, newdata)
+\method{predict}{optWeight}(object, newdata, ...)
 }
 \arguments{
 \item{object}{A fit \code{optWeight} object.}
 
 \item{newdata}{A new data frame with the same design as the original \code{X} object
 that was used in the call to \code{optWeight}.}
+
+\item{...}{Other args (not used)}
 }
 \description{
 A method for prediction of weighted outcome based on \code{optWeight} fitted object.

@@ -6,6 +6,13 @@
 \usage{
 getUnivariateR2(Y, psiHat.Pnv0, return.IC)
 }
+\arguments{
+\item{Y}{The matrix of outcomes}
+
+\item{psiHat.Pnv0}{The predictions on training sample}
+
+\item{return.IC}{Boolean for whether to return influence functions}
+}
 \value{
 A \code{list} with point estimate and 95% Wald-style confidence interval 
 for R^2 for each outcome individually.
@@ -13,9 +20,5 @@ for R^2 for each outcome individually.
 \description{
 Comptues the R^2 and a confidence interval for a particular outcome and 
 Super Learner prediction.
-}
-\details{
-@inheritParams r2weight::alphaHat
- @param Y The matrix of outcomes
 }
 

@@ -1,17 +1,15 @@
-#' r2Diff 
+#' r2_diff 
 #' 
 #' Compare the R-squared values in two objects class \code{optWeight} or of 
-#' class \code{r2.optWeight}. The former compares the R-squared values
+#' class \code{r2_optWeight}. The former compares the R-squared values
 #' for each outcome between the two \code{optWeight} objects, while the latter 
-#' compares the R-squared values for the combined outcome of two \code{r2.optWeight}
+#' compares the R-squared values for the combined outcome of two \code{r2_optWeight}
 #' objects. 
 #' 
 #' @param object1 An object of either class \code{optWeight} or of class 
-#' \code{r2.optWeight}. The class type should match that of \code{object2}.
+#' \code{r2_optWeight}. The class type should match that of \code{object2}.
 #' @param object2 An object of either class \code{optWeight} or of class 
-#' \code{r2.optWeight}. The class type should match that of \code{object1}.
-#' @param Y The \code{data.frame} of outcomes that was used to fit \code{object1}
-#' and \code{object2}.
+#' \code{r2_optWeight}. The class type should match that of \code{object1}.
 #' @param comparison What type of comparison should be made. Possible choices include
 #' \code{"diff"} and \code{"ratio"}.
 #' @param alpha The function returns a \code{(1-alpha)*100} percent confidence interval. Default
@@ -21,35 +19,38 @@
 #' 
 #' @export
 #' 
+#' @importFrom stats pnorm qnorm
+#' 
 #' @examples 
-#' #' @examples
 #' X <- data.frame(x1=runif(n=100,0,5), x2=runif(n=100,0,5))
 #' Y1 <- rnorm(100, X$x1 + X$x2, 1)
 #' Y2 <- rnorm(100, X$x1 + X$x2, 3)
 #' Y <- data.frame(Y1 = Y1, Y2 = Y2)
-#' fit1 <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), family = gaussian(), return.CV.SuperLearner = FALSE)
-#' perf.fit1 <- r2.optWeight(object = fit1, Y = Y, X = X, evalV = 5)
-#' fit2 <- optWeight(Y = Y, X = X[,1,drop=FALSE], SL.library = c("SL.glm","SL.mean"), family = gaussian(),return.CV.SuperLearner = FALSE)
-#' perf.fit2 <- r2.optWeight(object = fit2, Y = Y, X = X[,1,drop=FALSE], evalV = 5)
+#' #fit1 <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), 
+#' #family = "gaussian", return.CV.SuperLearner = FALSE)
+#' #perf.fit1 <- r2_optWeight(object = fit1, Y = Y, X = X, evalV = 5)
+#' #fit2 <- optWeight(Y = Y, X = X[,1,drop=FALSE], SL.library = c("SL.glm","SL.mean"), 
+#' #family = "gaussian",return.CV.SuperLearner = FALSE)
+#' #perf.fit2 <- r2_optWeight(object = fit2, Y = Y, X = X[,1,drop=FALSE], evalV = 5)
 #' 
 #' # compare cross-validated r-squared for each outcome
-#' comp <- r2.compare(fit1, fit2)
-#' comp
+#' #comp <- r2_diff(fit1, fit2)
+#' # comp
 #' # compare cross-validated r-squared for combined outcome
-#' perf.comp <- r2.compare(perf.fit1, perf.fit2)
-#' perf.comp
+#' #perf.comp <- r2_diff(perf.fit1, perf.fit2)
+#' # perf.comp
 
 
-# TO DO: Add in ability to input one "optWeight" and one "r2.optWeight" object 
+# TO DO: Add in ability to input one "optWeight" and one "r2_optWeight" object 
 # which would then compare the performance for optimally combined outcome to the 
 # performance for each outcome individually
-r2Diff <- function(
+r2_diff <- function(
     object1, object2, comparison = c("diff","ratio"), alpha = 0.05
 ){
     # check classes
     if(class(object1) != class(object2)){
         stop(paste0("object1 and object2 must be of the same class (either both class optWeight",
-             "or both class r2.optWeight"))
+             "or both class r2_optWeight"))
     }
     
     # check outcomes are same
@@ -97,11 +98,11 @@ r2Diff <- function(
                     # point estimate
                     est = diff.j,
                     # lower ci
-                    CI.l = diff.j - qnorm(1-alpha/2)*se.diff.j,
+                    CI.l = diff.j - stats::qnorm(1-alpha/2)*se.diff.j,
                     # upper ci
-                    CI.h = diff.j + qnorm(1-alpha/2)*se.diff.j,
+                    CI.h = diff.j + stats::qnorm(1-alpha/2)*se.diff.j,
                     # p-value for wald test that point.j = 0
-                    p = 2*pnorm(-abs(diff.j/se.diff.j))
+                    p = 2*stats::pnorm(-abs(diff.j/se.diff.j))
                 )
             }
             # get se of ratio
@@ -116,16 +117,16 @@ r2Diff <- function(
                     # point estimate
                     est = exp(log.ratio.j),
                     # lower ci
-                    CI.l = exp(log.ratio.j - qnorm(1-alpha/2)*se.log.ratio.j),
+                    CI.l = exp(log.ratio.j - stats::qnorm(1-alpha/2)*se.log.ratio.j),
                     # upper ci
-                    CI.h = exp(log.ratio.j + qnorm(1-alpha/2)*se.log.ratio.j), 
+                    CI.h = exp(log.ratio.j + stats::qnorm(1-alpha/2)*se.log.ratio.j), 
                     # p-value for wald test that point.j = 0
-                    p = 2*pnorm(-abs(log.ratio.j/se.log.ratio.j))
+                    p = 2*stats::pnorm(-abs(log.ratio.j/se.log.ratio.j))
                 )
             }
         }
     # comparisons of weighted outcomes
-    }else if(class(object1) == "r2.optWeight"){
+    }else if(class(object1) == "r2_optWeight"){
         # initialize out
         out <- vector(mode = "list")
         out$diff <- NULL; out$ratio <- NULL
@@ -152,11 +153,11 @@ r2Diff <- function(
             # point estimate
                 est = diff,
                 # lower ci
-                CI.l = diff - qnorm(1-alpha/2)*se.diff,
+                CI.l = diff - stats::qnorm(1-alpha/2)*se.diff,
                 # upper ci
-                CI.h = diff + qnorm(1-alpha/2)*se.diff,
+                CI.h = diff + stats::qnorm(1-alpha/2)*se.diff,
                 # p-value for wald test that point = 0
-                p = 2*pnorm(-abs(diff/se.diff))
+                p = 2*stats::pnorm(-abs(diff/se.diff))
             )
         }
         # get se of ratio
@@ -171,20 +172,20 @@ r2Diff <- function(
                 # point estimate
                 est = exp(log.ratio),
                 # lower ci
-                CI.l = exp(log.ratio - qnorm(1-alpha/2)*se.log.ratio),
+                CI.l = exp(log.ratio - stats::qnorm(1-alpha/2)*se.log.ratio),
                 # upper ci
-                CI.h = exp(log.ratio + qnorm(1-alpha/2)*se.log.ratio), 
+                CI.h = exp(log.ratio + stats::qnorm(1-alpha/2)*se.log.ratio), 
                 # p-value for wald test that point = 0
-                p = 2*pnorm(-abs(log.ratio/se.log.ratio))
+                p = 2*stats::pnorm(-abs(log.ratio/se.log.ratio))
             )
         }
     }else{
         stop(paste0("object1 and object2 must be either of class 'optWeight'",
-                    "or class 'r2.optWeight'")) 
+                    "or class 'r2_optWeight'")) 
     }
-    out$type <- ifelse(class(object1) == "optWeight", "optWeight", "r2.optWeight")
+    out$type <- ifelse(class(object1) == "optWeight", "optWeight", "r2_optWeight")
     out$Ynames <- object1$Ynames
-    class(out) <- "r2Diff"
+    class(out) <- "r2_diff"
     return(out)
 }
 

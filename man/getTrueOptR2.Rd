@@ -6,6 +6,9 @@
 \usage{
 getTrueOptR2(n = 1e+06)
 }
+\arguments{
+\item{n}{Sample size}
+}
 \description{
 Compute the true value of R^2_{0,omega_0}
 }

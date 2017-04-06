@@ -6,6 +6,9 @@
 \usage{
 getTrueWeights(n = 1e+06)
 }
+\arguments{
+\item{n}{Sample size}
+}
 \description{
 Compute the true value of the optimal weights for simulation 1.
 }

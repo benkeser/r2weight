@@ -38,7 +38,7 @@ library("r2weight")
 Use
 ---
 
-The basic workflow of the package is to call the function `optWeight`, which estimates the optimal weights for the combined outcome. The function `r2.optWeight` can then be called using the `optWeight` object to obtain a cross-validated estimate of the R-squared for predicting the combined outcome.
+The basic workflow of the package is to call the function `optWeight`, which estimates the optimal weights for the combined outcome. The function `r2_optWeight` can then be called using the `optWeight` object to obtain a cross-validated estimate of the R-squared for predicting the combined outcome.
 
 Here we illustrate the method using simulated data.
 
@@ -103,12 +103,12 @@ predict(out1, newdata = newX)
     ##          [,1]
     ## [1,] 15.80969
 
-We can call `r2.optWeight` to get an estimate of the cross-validated R-squared for predicting the combined outcome with Super Learner.
+We can call `r2_optWeight` to get an estimate of the cross-validated R-squared for predicting the combined outcome with Super Learner.
 
 ``` r
 # cross-validated R-squared
 # set verbose = TRUE to see a progress bar
-r2.out1 <- r2.optWeight(out1, Y = Y, X = X)
+r2.out1 <- r2_optWeight(out1, Y = Y, X = X)
 
 # print the output
 r2.out1
@@ -133,7 +133,7 @@ The R-squared for each individual outcome is shown, as well as for the combined 
 Variable importance
 -------------------
 
-A measure of variable importance for a particular variable can be defined as the difference in R-squared for the combined outcome when including and excluding that variable. These measures can be estimated using the `r2Diff` function.
+A measure of variable importance for a particular variable can be defined as the difference in R-squared for the combined outcome when including and excluding that variable. These measures can be estimated using the `r2_diff` function.
 
 ``` r
 # measure importance of x9
@@ -158,7 +158,7 @@ out2
 
 ``` r
 # compare to full fit to get importance for each individual outcome
-outDiff <- r2Diff(out1, out2)
+outDiff <- r2_diff(out1, out2)
 # difference in R-squared for first outcome
 # with confidence interval and p-value for two-sided test that 
 # the difference equals 0
@@ -178,7 +178,7 @@ outDiff$y3$diff
 
 ``` r
 # get R-squared for combined outcome excluding x9
-r2.out2 <- r2.optWeight(out2, Y = Y, X = X[,1:8])
+r2.out2 <- r2_optWeight(out2, Y = Y, X = X[,1:8])
 
 # print output, notice change in weights
 r2.out2
@@ -200,7 +200,7 @@ r2.out2
 
 ``` r
 # compare to full fit to get importance for combined outcome
-outDiff.r2 <- r2Diff(r2.out1, r2.out2)
+outDiff.r2 <- r2_diff(r2.out1, r2.out2)
 
 # print output
 outDiff.r2
@@ -215,13 +215,13 @@ outDiff.r2
     ## 1 0.9454212 0.9049312 0.9877229 0.01196758
     ## 
     ## $type
-    ## [1] "r2.optWeight"
+    ## [1] "r2_optWeight"
     ## 
     ## $Ynames
     ## [1] "y1" "y2" "y3"
     ## 
     ## attr(,"class")
-    ## [1] "r2.compare"
+    ## [1] "r2_diff"
 
 
 License

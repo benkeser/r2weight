@@ -6,6 +6,9 @@
 \usage{
 makeData(n)
 }
+\arguments{
+\item{n}{Sample size}
+}
 \description{
 Makes data for simulation.
 }

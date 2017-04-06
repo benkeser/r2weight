@@ -3,8 +3,9 @@
 #' Comptues the R^2 and a confidence interval for a particular outcome and 
 #' Super Learner prediction.
 #' 
-#'  @inheritParams r2weight::alphaHat
-#'  @param Y The matrix of outcomes
+#' @param Y The matrix of outcomes
+#' @param psiHat.Pnv0 The predictions on training sample
+#' @param return.IC Boolean for whether to return influence functions 
 #'  
 #' 
 #' @return A \code{list} with point estimate and 95% Wald-style confidence interval 

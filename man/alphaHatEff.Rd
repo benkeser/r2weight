@@ -7,7 +7,11 @@
 alphaHatEff(Y, X, Z, Qn1, Qn0, gn, select)
 }
 \arguments{
-\item{Y}{A matrix with columns corresponding to different outcomes in training data}
+\item{Y}{The outcome}
+
+\item{X}{The covariates}
+
+\item{Z}{The binary treatment}
 
 \item{Qn1}{A matrix of predictions from SuperLearner on training data with Z = 1}
 
@@ -15,7 +19,7 @@ alphaHatEff(Y, X, Z, Qn1, Qn0, gn, select)
 
 \item{gn}{A matrix of propensity estimates in training data}
 
-\item{QnObs}{A matrix of predictions from SuperLearner on training data with observed Z}
+\item{select}{How to choose amongst outcomes}
 }
 \value{
 weights A numeric vector of weights of the same length as the number

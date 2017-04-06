@@ -4,15 +4,25 @@
 \alias{optWeightEff}
 \title{optWeightEff}
 \usage{
-optWeightEff(Y, X, SL.library.Q, SL.library.g, V = 10,
-  return.SuperLearner = FALSE, select = "pvalue", SuperLearner.V = 10,
-  return.IC = TRUE, parallel = FALSE, family = gaussian(),
-  n.cores = detectCores(), ...)
+optWeightEff(Y, X, Z, SL.library.Q, SL.library.g, V = 10,
+  return.SuperLearner = FALSE, select = "effect", seed = 12345,
+  SuperLearner.V = 10, return.IC = TRUE, parallel = FALSE,
+  family = "gaussian", n.cores = parallel::detectCores(), ...)
 }
 \arguments{
 \item{Y}{A \code{data.frame} of outcomes with each column representing a different outcome}
 
 \item{X}{A \code{data.frame} that will be used to predict each outcome.}
+
+\item{Z}{A \code{vector} of binary treatment assignments (= 0 or 1)}
+
+\item{SL.library.Q}{A \code{vector} or \code{list} of the Super Learner library to be used for the
+outcome regression. See \code{?SuperLearner} for more details. For now the same \code{SL.library} is used
+for prediction of each outcome.}
+
+\item{SL.library.g}{A \code{vector} or \code{list} of the Super Learner library to be used for the
+propensity score. See \code{?SuperLearner} for more details. For now the same \code{SL.library} is used
+for prediction of each outcome.}
 
 \item{V}{The number of cross validation folds to use to define parameter.}
 
@@ -23,29 +33,22 @@ objects for each outcome. Default is \code{TRUE}, as these fits are needed for l
 the estimated p-value of the effect (\code{"pvalue"}) or the absolute value of the estimated
 effect size (\code{"effect"}).}
 
+\item{seed}{The seed to set before each internal call to \code{CV.SuperLearner}}
+
+\item{SuperLearner.V}{The number of CV folds for the \code{SuperLearner}.}
+
 \item{return.IC}{A \code{boolean} indicating whether to return vectors of cross validated 
 influence curve estimates at the observed data.}
 
 \item{parallel}{Not developed yet}
 
-\item{family}{An object of class \code{family} equal to either \code{gaussian()} for continuous
-outcomes or \code{binomial()} for binary outcomes.}
+\item{family}{An object of class \code{family} equal to either \code{"gaussian"} for continuous
+outcomes or \code{"binomial"} for binary outcomes.}
 
 \item{n.cores}{A \code{numeric} indicating how many cores to use if \code{parallel = TRUE}. 
-By default will use \code{detectCores()}. Not developed yet.}
+By default will use \code{parallel::detectCores()}. Not developed yet.}
 
 \item{...}{Other arguments}
-
-\item{Z}{A \code{vector} of binary treatment assignments (= 0 or 1)}
-
-\item{SL.library}{A \code{vector} or \code{list} of the Super Learner library to be used for the
-prediction. See \code{?SuperLearner} for more details. For now the same \code{SL.library} is used
-for prediction of each outcome.}
-
-\item{seed}{The seed to set before each internal call to \code{CV.SuperLearner}}
-
-\item{CV.SuperLearner.V}{The number of CV folds for the calls to \code{CV.SuperLearner}. For now, the inner
-calls to \code{CV.SuperLearner} always use V=10.}
 }
 \value{
 TO DO: Add return documentation.
@@ -56,12 +59,14 @@ the optimal combination using Super Learning.
 }
 \examples{
 # Example 1 -- simple fit
+set.seed(1234)
 X <- data.frame(x1=runif(n=500,0,5), x2=runif(n=500,0,5))
 Z <- rbinom(500, 1, plogis(-2 + X$x1 + X$x2))
 Y1 <- rnorm(500, X$x1 + X$x2 + 1*Z, 1)
 Y2 <- rnorm(500, X$x1 + X$x2 + 0.25*Z, 1)
 Y <- data.frame(Y1 = Y1, Y2 = Y2)
-fit <- optWeightEff(Y = Y, X = X, Z=Z, SL.library.Q = c("SL.glm","SL.mean"),
-                     SL.library.g = c("SL.glm","SL.mean"))
+#example not working yet
+#fit <- optWeightEff(Y = Y, X = X, Z=Z, SL.library.Q = c("SL.glm","SL.mean"),
+#                     SL.library.g = c("SL.glm","SL.mean"))
 }
 

@@ -3,14 +3,20 @@
 #' Compute weights for ate estimation
 #' 
 #' 
-#' @param Y A matrix with columns corresponding to different outcomes in training data
-#' @param QnObs A matrix of predictions from SuperLearner on training data with observed Z
+#' @param Y The outcome
+#' @param X The covariates
+#' @param Z The binary treatment
 #' @param Qn1 A matrix of predictions from SuperLearner on training data with Z = 1
 #' @param Qn0 A matrix of predictions from SuperLearner on training data with Z = 0
 #' @param gn A matrix of propensity estimates in training data
+#' @param select How to choose amongst outcomes
+#' 
 #' 
 #' @return weights A numeric vector of weights of the same length as the number
 #' of outcomes considered. The weights sum to 1. 
+#' 
+#' @importFrom tmle tmle
+#' @importFrom Rsolnp solnp
 
 
 alphaHatEff <- function(Y, X, Z, Qn1, Qn0, gn, select){

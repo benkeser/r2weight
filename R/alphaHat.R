@@ -13,6 +13,8 @@
 #' 
 #' @return weights A numeric vector of weights of the same length as the number
 #' of outcomes considered. The weights sum to 1. 
+#' 
+#' @importFrom Rsolnp solnp
 
 
 alphaHat <- function(Y, psiHat.Pnv0){
