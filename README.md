@@ -1,7 +1,6 @@
 r2weight
 ================
 David Benkeser
-August 22, 2016
 
 Introduction
 ------------

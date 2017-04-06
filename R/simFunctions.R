@@ -321,69 +321,74 @@ getTrueOptR2Exclude <- function(n=1e6, excludeX){
 #'@param outExFile A \code{character} specifying the .pdf file name for simulation 2 results
 #'@param ... Passed to \code{pdf}
 
+# outExclude <- get(load("~/Dropbox/R/r2weight/tests/simulation/allOutExclude.RData"))
+# out <- get(load("~/Dropbox/R/r2weight/tests/simulation/allOut.RData"))
+
 plotSimResults <- function(out, outExclude, ...,
-                           saveDir = "~/Dropbox/Berkeley/r2weight/tests/simulation/",
+                           saveDir = "~/Dropbox/Job Applications/Job Talk/",
                            outFile="sim1Rslt.pdf", outExFile="sim2Rslt.pdf"){
     #----------------
     # results for r2
     #----------------
-    bias.r2 <- c(unlist(by(out, out$n, function(x){ mean(x$errOptR2) })))
-    cov.r2 <- c(unlist(by(out, out$n, function(x){ mean(x$covOptR2) })))
+    bias.r2 <- c(unlist(by(out, out$n, function(x){ mean(x$errOptR2,na.rm=TRUE)/x$trueOptR2[1]*100 })))
+    cov.r2 <- c(unlist(by(out, out$n, function(x){ mean(x$covOptR2,na.rm=TRUE) })))
     se.cov.r2 <- sqrt(cov.r2*(1-cov.r2)/1000)
     #----------------------
     # results for delta-r2
     #----------------------
-    bias.dr2.x2 <- c(unlist(by(outExclude[outExclude$excludeX==2,], outExclude$n[outExclude$excludeX==2], function(x){ mean(x$errOptR2.diff) })))
-    cov.dr2.x2 <- c(unlist(by(outExclude[outExclude$excludeX==2,], outExclude$n[outExclude$excludeX==2], function(x){ mean(x$covOptR2.diff) })))
+    bias.dr2.x2 <- c(unlist(by(outExclude[outExclude$excludeX==2,], outExclude$n[outExclude$excludeX==2], function(x){ mean(x$errOptR2.diff,na.rm=TRUE)/x$trueOptR2.diff[1]*100 })))
+    cov.dr2.x2 <- c(unlist(by(outExclude[outExclude$excludeX==2,], outExclude$n[outExclude$excludeX==2], function(x){ mean(x$covOptR2.diff,na.rm=TRUE) })))
     se.cov.dr2.x2 <- sqrt(cov.r2*(1-cov.r2)/1000)
     
-    bias.dr2.x7 <- c(unlist(by(outExclude[outExclude$excludeX==7,], outExclude$n[outExclude$excludeX==7], function(x){ mean(x$errOptR2.diff) })))
-    cov.dr2.x7 <- c(unlist(by(outExclude[outExclude$excludeX==7,], outExclude$n[outExclude$excludeX==7], function(x){ mean(x$covOptR2.diff) })))
-    se.cov.dr2.x7 <- sqrt(cov.r2*(1-cov.r2)/1000)
+    # to plot excluding x7 as well uncomment this
+    # bias.dr2.x7 <- c(unlist(by(outExclude[outExclude$excludeX==7,], outExclude$n[outExclude$excludeX==7], function(x){ mean(x$errOptR2.diff)/x$trueOptR2.diff[1]*100 })))
+    # cov.dr2.x7 <- c(unlist(by(outExclude[outExclude$excludeX==7,], outExclude$n[outExclude$excludeX==7], function(x){ mean(x$covOptR2.diff) })))
+    # se.cov.dr2.x7 <- sqrt(cov.r2*(1-cov.r2)/1000)
     #--------------------
     # sample sizes
     #--------------------
     n <- c(100,500,1000,5000)
     
     # r2 plots
-    pdf(paste0(saveDir,outFile),...)
+    pdf(paste0(saveDir,outFile),height = 2.6, width = 5.5)
     layout(matrix(1:2,nrow=1,byrow = TRUE))
     par(oma = c(0,0,0,0),
         mar = c(3.1, 3.1, 1, 1),
         mgp = c(1.5, 0.6, 0))
-    plot(bias.r2 ~ I(1:4), xlab = "n", ylab="Bias", xaxt = "n", bty="n",
-         ylim = c(-0.04, 0.01), type="b")
+    plot(bias.r2 ~ I(1:4), xlab = "n", ylab="Bias (% of truth)", xaxt = "n", bty="n",
+         ylim = c(-2, 1), type="b")
     axis(side = 1, at = 1:4, labels = prettyNum(n,big.mark = ","))
     abline(h=0, lty=3)
     
     plot(I(cov.r2*100) ~ I(1:4), xlab = "n", ylab="Coverage (MC CI)", 
-         xaxt = "n", bty="n", type="b", ylim = c(72, 100))
+         xaxt = "n", bty="n", type="b", ylim = c(87, 100))
     axis(side = 1, at = 1:4, labels = prettyNum(n,big.mark = ","))
     abline(h=95, lty=3)
     segments(x0=1:4, y0=100*(cov.r2-1.96*se.cov.r2), y1=100*(cov.r2+1.96*se.cov.r2))
     dev.off()
     
-    pdf(paste0(saveDir,outExFile), ...)
+    pdf(paste0(saveDir,outExFile), height=2.6, width = 5.5)
     layout(matrix(1:2,nrow=1,byrow = TRUE))
     par(oma = c(0,0,0,0),
         mar = c(3.1, 3.1, 1, 1),
         mgp = c(1.5, 0.6, 0))
-    plot(bias.dr2.x2 ~ I(1:4), xlab = "n", ylab="Bias", xaxt = "n", bty="n",
-         ylim = c(-0.01, 0.02), type="b", pch = 2)
-    points(bias.dr2.x7 ~I(1:4), type ="b", pch=5)
+    plot(bias.dr2.x2 ~ I(1:4), xlab = "n", ylab="Bias (% of truth)", xaxt = "n", bty="n",
+         ylim = c(-1,5), type="b", pch = 2)
+    # points(bias.dr2.x7 ~I(1:4), type ="b", pch=5)
     axis(side = 1, at = 1:4, labels = prettyNum(n,big.mark = ","))
     abline(h=0, lty=3)
-    legend(x=2, y=0.02, bty="n", pch = c(2,5), 
-           legend=c(expression("exclude "*X[2]), expression("exclude "*X[4])))
+    # legend(x=2, y=0.02, bty="n", pch = c(2,5), 
+    #        legend=c(expression("exclude "*X[2]), expression("exclude "*X[4])))
     
     plot(I(cov.dr2.x2*100) ~ I(1:4), xlab = "n", ylab="Coverage (MC CI)", 
-         xaxt = "n", bty="n", type="b", ylim = c(72, 100), pch=2)
-    points(I(cov.dr2.x7*100) ~ I(1:4), type ="b", pch=5)
+         xaxt = "n", bty="n", type="b", ylim = c(80, 100), pch=2)
+    # points(I(cov.dr2.x7*100) ~ I(1:4), type ="b", pch=5)
     axis(side = 1, at = 1:4, labels = prettyNum(n,big.mark = ","))
     abline(h=95, lty=3)
     segments(x0=1:4, y0=100*(cov.dr2.x2-1.96*se.cov.dr2.x2), y1=100*(cov.dr2.x2+1.96*se.cov.dr2.x2))
-    segments(x0=1:4, y0=100*(cov.dr2.x7-1.96*se.cov.dr2.x7), y1=100*(cov.dr2.x7+1.96*se.cov.dr2.x7))
+    # segments(x0=1:4, y0=100*(cov.dr2.x7-1.96*se.cov.dr2.x7), y1=100*(cov.dr2.x7+1.96*se.cov.dr2.x7))
     dev.off()
     
     print("files saved")
 }
+

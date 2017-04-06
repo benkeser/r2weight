@@ -45,7 +45,8 @@
 
 optWeightEff <- function(Y, X, SL.library.Q, SL.library.g,
                          V = 10, return.SuperLearner = FALSE,
-                         select = "pvalue",
+                         select = "effect",
+                         seed = 12345, 
                          SuperLearner.V = 10, 
                          return.IC = TRUE,
                          parallel = FALSE,

@@ -24,29 +24,39 @@ alphaHatEff <- function(Y, X, Z, Qn1, Qn0, gn, select){
     # function that computes R^2(P)
     # alpha.P = the weights that solnp will maximize over
     # Pnv0 = list with entries described above
-    getATE <- function(alpha_n, Y, X, Z, Qn1, Qn0, gn, select){
-        J <- ncol(Y)
-        # weighted outcome
-        Ycombn <- Y%*%alpha_n
+    if(select == "p-value"){
+        getATE <- function(alpha_n, Y, X, Z, Qn1, Qn0, gn){
+            J <- ncol(Y)
+            # weighted outcome
+            Ycombn <- Y%*%alpha_n
+            
+            # weighted predictions
+            Qn1Combn <- Qn1%*%alpha_n
+            Qn0Combn <- Qn0%*%alpha_n
+            
+            # tmle fit
+            fit.tmle <- tmle::tmle(Y = Ycombn, A = Z, W = X, Q = cbind(Qn0Combn, Qn1Combn), g1W = gn)
+            
+            # return 
+            return(
+                -abs(fit.tmle$estimates$ATE$psi/sqrt(fit.tmle$estimates$ATE$var.psi))
+            )
+        }
         
-        # weighted predictions
-        Qn1Combn <- Qn1%*%alpha_n
-        Qn0Combn <- Qn0%*%alpha_n
-        
-        # tmle fit
-        fit.tmle <- tmle::tmle(Y = Ycombn, A = Z, W = X, Q = cbind(Qn0Combn, Qn1Combn), g1W = gn)
-        
-        # return 
-        return(
-            ifelse(select=="pvalue", -abs(fit.tmle$estimates$ATE$psi/sqrt(fit.tmle$estimates$ATE$var.psi)),
-                   -abs(fit.tmle$estimates$ATE$psi))
-        )
+        # minimize 1-R^2(P) subject to constraint
+        fm <- Rsolnp::solnp(pars=rep(1/J,J), fun=getATE, LB=rep(0,J), UB=rep(1,J), 
+                            eqfun=constraint, control=list(trace=0), eqB=0, 
+                            Y=Y, X=X, Z=Z, Qn1=Qn1, Qn0=Qn0, gn = gn)
+        wt <- fm$pars
+    }else if(select == "effect"){
+        ateVec <- rep(NA, J)
+        for(j in 1:J){
+            fit.tmle <- tmle::tmle(Y = Y[,j], A = Z, W = X, Q = cbind(Qn0[,j], Qn1[,j]), g1W = gn)
+            ateVec[j] <- -abs(fit.tmle$estimates$ATE$psi)
+        }
+        wt <- rep(0, J); biggestATE <- which(ateVec == min(ateVec))
+        wt[biggestATE] <- 1
     }
-    
-    # minimize 1-R^2(P) subject to constraint
-    fm <- Rsolnp::solnp(pars=rep(1/J,J), fun=getATE, LB=rep(0,J), UB=rep(1,J), 
-                        eqfun=constraint, control=list(trace=0), eqB=0, 
-                        Y=Y, X=X, Z=Z, Qn1=Qn1, Qn0=Qn0, gn = gn, select = select)
     # return weights
-    return(fm$pars)
+    return(wt)
 }
