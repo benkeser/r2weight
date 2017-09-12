@@ -76,6 +76,7 @@ r2_optWeight <- function(
     out$Ynames <- colnames(Y)
     out$r2 <- R2.rslt[[1]][1]
     out$r2.ci <- R2.rslt[[1]][2:3]
+    out$r2.pval <- R2.rslt[[1]][4]
     out$MSE <- R2.rslt$MSE
     out$Var <- R2.rslt$Var
     out$IC <- NULL
