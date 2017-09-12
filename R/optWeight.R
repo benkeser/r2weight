@@ -76,7 +76,8 @@ optWeight <- function(Y, X, SL.library, family = "gaussian", CV.SuperLearner.V =
         }
         fit <- SuperLearner::CV.SuperLearner(
             Y = y, X = X, SL.library = SL.library, family = family, V = CV.SuperLearner.V,
-            parallel = ifelse(parallel, "multicore","seq")
+            parallel = ifelse(parallel, "multicore","seq"),
+            method = "method.CC_LS"
         )
     })
     
@@ -102,7 +103,7 @@ optWeight <- function(Y, X, SL.library, family = "gaussian", CV.SuperLearner.V =
     SuperLearner.list <- apply(Ymat, 2, function(y){
         set.seed(seed)
         fit <- SuperLearner::SuperLearner(
-            Y = y, X = X, SL.library = SL.library, family = family
+            Y = y, X = X, SL.library = SL.library, family = family, method = "method.CC_LS"
         )
     })
     
