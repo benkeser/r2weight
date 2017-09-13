@@ -32,11 +32,11 @@ print.r2_optWeight <- function(x,...){
     cat("\n \nR-squared for each outcome with", x$whichAlgorithm, " : \n")
     r2Table <- round(Reduce("rbind", x$univariateR2),3)
     row.names(r2Table) <- x$Ynames
-    colnames(r2Table) <- c("R2","CI.l","CI.h")
+    colnames(r2Table) <- c("R2","CI.l","CI.h","pval")
     print(r2Table)
     cat("\n")
     cat("\n \nR-squared for combined outcome with", x$whichAlgorithm, " : \n")
-    r2Table2 <- matrix(round(c(x$r2, x$r2.ci),3),nrow=1)
+    r2Table2 <- matrix(round(c(x$r2, x$r2.ci, x$r2.pval),3),nrow=1)
     row.names(r2Table2) <- "weighted combination"
     colnames(r2Table2) <- c("R2","CI.l","CI.h")
     print(r2Table2)
