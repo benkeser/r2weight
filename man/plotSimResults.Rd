@@ -24,4 +24,3 @@ plotSimResults(out, outExclude, ...,
 \description{
 Function to plot bias and coverage from simulations
 }
-

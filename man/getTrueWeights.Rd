@@ -12,4 +12,3 @@ getTrueWeights(n = 1e+06)
 \description{
 Compute the true value of the optimal weights for simulation 1.
 }
-

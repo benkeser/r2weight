@@ -48,4 +48,3 @@ Y <- data.frame(Y1 = Y1, Y2 = Y2)
 #perf.comp <- r2_diff(perf.fit1, perf.fit2)
 # perf.comp
 }
-

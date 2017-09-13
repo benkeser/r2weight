@@ -14,4 +14,3 @@
 \description{
 Method for summarizing output of r2.varImport.
 }
-

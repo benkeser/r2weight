@@ -13,4 +13,3 @@ getTrueUnivariateR2(n = 1e+06)
 Compute the true value of R^2_{0,j}. The code computes it only for 
 y1 (from \code{makeData}), but it will be the same for all outcomes
 }
-

@@ -54,4 +54,3 @@ family = "gaussian",outerV = 10, return.CV.SuperLearner = FALSE)
 perf.fit <- r2_optWeight(object = fit, Y = Y, X = X, evalV = 5)
 varImp <- r2_varImp(fit, perf.fit, Y = Y, X = X)
 }
-

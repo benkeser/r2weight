@@ -14,4 +14,3 @@ getTrueOptR2Exclude(n = 1e+06, excludeX)
 \description{
 Compute the true value of R^2_{0,omega_0} when a given variable of X is excluded.
 }
-

@@ -28,4 +28,3 @@ of outcomes considered. The weights sum to 1.
 \description{
 Compute weights for ate estimation
 }
-

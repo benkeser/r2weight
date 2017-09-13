@@ -21,4 +21,3 @@ for R^2 for each outcome individually.
 Comptues the R^2 and a confidence interval for a particular outcome and 
 Super Learner prediction.
 }
-

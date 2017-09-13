@@ -12,7 +12,7 @@ Depends:
     grDevices,
     utils,
     graphics,
-    quadprog
+    Rsolnp
 Recommends: 
 	quadprog
 License: MIT

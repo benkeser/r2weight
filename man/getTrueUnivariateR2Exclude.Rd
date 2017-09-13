@@ -16,4 +16,3 @@ getTrueUnivariateR2Exclude(n = 1e+06, excludeX, whichY)
 \description{
 Compute the true value of R^2_{0,j} when a given variable of X is excluded.
 }
-

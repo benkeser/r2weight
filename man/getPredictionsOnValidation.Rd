@@ -14,4 +14,3 @@ getPredictionsOnValidation(out, whichAlgorithm)
 \description{
 Get validation predictions from a CV.SuperLearner object.
 }
-

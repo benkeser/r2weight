@@ -14,4 +14,3 @@
 \description{
 Print output of optimal weight procedure
 }
-

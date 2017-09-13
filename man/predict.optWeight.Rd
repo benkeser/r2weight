@@ -17,4 +17,3 @@ that was used in the call to \code{optWeight}.}
 \description{
 A method for prediction of weighted outcome based on \code{optWeight} fitted object.
 }
-

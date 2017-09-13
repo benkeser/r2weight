@@ -23,4 +23,3 @@ the data as the matrix Y, with columns again corresponding to different
 outcomes. The function computes the set of weights that maximize the value
 of R-squared in this partition using solnp() from the Rsolnp package.
 }
-

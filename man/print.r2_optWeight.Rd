@@ -14,4 +14,3 @@
 \description{
 Print the output of R-squared for Super Learner of optimal R-squared
 }
-

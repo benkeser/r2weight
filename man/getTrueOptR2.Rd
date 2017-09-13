@@ -12,4 +12,3 @@ getTrueOptR2(n = 1e+06)
 \description{
 Compute the true value of R^2_{0,omega_0}
 }
-

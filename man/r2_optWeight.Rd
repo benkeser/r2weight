@@ -54,4 +54,3 @@ return.CV.SuperLearner = FALSE)
 perf.fit <- r2_optWeight(object = fit, Y = Y, X = X, evalV = 5)
 
 }
-

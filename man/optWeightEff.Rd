@@ -69,4 +69,3 @@ Y <- data.frame(Y1 = Y1, Y2 = Y2)
 #fit <- optWeightEff(Y = Y, X = X, Z=Z, SL.library.Q = c("SL.glm","SL.mean"),
 #                     SL.library.g = c("SL.glm","SL.mean"))
 }
-
