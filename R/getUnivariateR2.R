@@ -57,7 +57,7 @@ getUnivariateR2 <- function(Y, psiHat.Pnv0, return.IC){
         ci.high <- 1 - exp(
             log(MSE[j]/Var[j]) - 1.96*se.logR2[j]
         )
-        pval <- -2*pnorm(-abs(log(MSE[j]/Var[j])/se.logR2[j]))
+        pval <- pnorm(log(MSE[j]/Var[j])/se.logR2[j])
         return(c(est, ci.low, ci.high, pval))
     })
     names(out) <- colnames(Y)
