@@ -61,11 +61,11 @@ Y2 <- rnorm(100, X$x1 + X$x2, 3)
 Y <- data.frame(Y1 = Y1, Y2 = Y2)
 
 fit <- optWeight(Y = Y, X = X, seed = 1, 
-SL.library = c("SL.glm","SL.mean","SL.step"))
+SL.library = c("SL.glm","SL.mean"))
 
 # Example 2 -- simple fit with parallelization
 #system.time(
-#   fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean","SL.step"), 
+#   fit <- optWeight(Y = Y, X = X, SL.library = c("SL.glm","SL.mean"), 
 #parallel = TRUE, n.cores = 3)
 #)
 
