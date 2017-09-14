@@ -32,6 +32,6 @@ test_that("optWeight works as expected.", {
 	r2.out1 <- r2_optWeight(out1, Y = Y, X = X, evalV = 2, verbose = TRUE)
 
 	expect_true(!is.na(r2.out1$r2))
-	expect_true(!is.na(r2.out1$r2.ci))
+	expect_true(all(!is.na(r2.out1$r2.ci)))
 	expect_true(!is.na(r2.out1$r2.pval))
 })
