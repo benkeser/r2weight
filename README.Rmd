@@ -117,7 +117,7 @@ A measure of variable importance for a particular variable can be defined as the
 ``` r
 # measure importance of x9
 # call optWeight excluding x9 from X
-out2 <- optWeight(Y = Y, X = X[,1:8], SL.library = c("SL.glm","SL.mean","SL.step"))
+out2 <- optWeight(Y = Y, X = X[,1:8], SL.library = c("SL.glm","SL.mean"))
 
 # print output
 out2 
