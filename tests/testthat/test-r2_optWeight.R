@@ -44,4 +44,6 @@ test_that("optWeight works as expected.", {
 	expect_true(d2$diff[2] < d2$diff[3])
 	expect_true(all(!is.na(d2$diff)))
 
+	# check varImp
+	vi <- r2_varImp(out1, r2.out1, Y = Y, X = X)
 })
